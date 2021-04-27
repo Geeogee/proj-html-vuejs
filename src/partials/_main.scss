@@ -88,7 +88,18 @@
 
     .container {
         @include container;
-        @include flexbox(space-between, center);
+        @include flexbox(space-between, initial);
+    }
+
+    #featured {
+
+        @include flexbox(flex-end,center);
+        flex-direction: column;
+    }
+
+    #featured-posts {
+
+        flex-grow: 1;
     }
 
     .rank {
@@ -148,9 +159,49 @@
             }
         }
 
+        .wrapper-rank-author {
+
+            @include flexbox(flex-start,center);
+            padding: 20px 0;
+
+            .wrapper-image {
+
+                flex-basis: 112px;
+                width: 112px;
+                height: 112px;
+
+                img {
+
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+
+            .wrapper-text {
+                
+                @include flexbox(center,flex-start);
+                flex-basis: calc(100% - 112px);
+                flex-direction: column;
+                padding-left: 10px;
+
+                .name {
+
+                    color: #121416;
+                    text-decoration: none;
+                    text-transform: capitalize;
+                    font-size: $large-font;
+                }
+
+                .descr {
+
+                    font-size: $base-font;
+                    color: #888;
+                }
+            }
+        }
         #slider {
 
-            
+            margin-top: 20px;
             width: 450px;
             height: 187.5px;
             position: relative;
@@ -171,7 +222,6 @@
             .thumb-text {
 
                 @include absolute-text(50%,20px,80%);
-                transition: all .4s;
     
                 .label {
     
@@ -190,6 +240,7 @@
     
             }
         }
+
     }
 
 }

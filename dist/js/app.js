@@ -129,6 +129,11 @@ function initVue() {
         "label": "gadgets",
         "title": "Why should I buy a smartwatch?"
       }],
+      "featAuthor": {
+        "name": "John Doe",
+        "icon": "img/avatar.jpg",
+        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pelle, consectetur adipiscing elit. "
+      },
       "showDescr": false,
       "activePreview": "",
       "activeImageSlider": 0
