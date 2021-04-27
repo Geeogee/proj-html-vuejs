@@ -96,11 +96,14 @@
                             <h2>
                                 {{ post.title }}
                             </h2>
-                            <transition name="fade">
+                            <!-- <transition name="fade">
                                 <div v-if="(showDescr) && (activePreview == post.id)" class="descr">
                                     {{ post.descr }}
                                 </div>
-                            </transition>
+                            </transition> -->
+                            <div class="descr">
+                                {{ post.descr }}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,10 @@
         .thumb-text {
 
             @include absolute-text(60%,20px,80%);
-            transition: all .4s;
+            max-height: 35%;
+            overflow: hidden;
+            transition: all .3s;
+            transition-delay: .3s;
 
             .label {
 
@@ -44,17 +47,24 @@
             h2 {
 
                 @extend %layover-h2;
+                min-height: 60px;
             }
 
             .descr {
 
                 @extend %layover-descr;
+                visibility: hidden;
+                transition: all ease .3s;
+                transition-delay: .3s;
             }
 
         }
 
         &:hover .thumb-text {
             top: 20px;
+            max-height: 90%;
+            transition-delay: 0s;
+
         }
 
         &:hover .layover {
@@ -62,19 +72,9 @@
             background-color: rgba(33,37,41,.8);
         }
 
-        .fade-enter-active {
-
-            transition: all 1s;
-        }
-
-        .fade.leave-active {
-
-            transition: all .2s;
-        }
-
-        .fade-enter, .fade-leave-to {
-
-            opacity: 0;
+        &:hover .descr {
+            visibility: visible;
+            transition-delay: 0s;
         }
     }
 }
