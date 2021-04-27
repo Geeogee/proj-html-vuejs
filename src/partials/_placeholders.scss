@@ -4,6 +4,22 @@
     list-style: none;
 }
 
+// Label
+
+%label {
+
+    background-color: $primary-blue;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: $small-font;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $secondary-white
+}
+
+// Layover 
+
 %layover {
 
     position: absolute;
@@ -13,4 +29,17 @@
     left: 0;
     z-index: 1;
     background-color: rgba(33,37,41,.4);
+}
+
+%layover-h2 {
+
+    color: $secondary-white;
+    font-size: $large-font;
+    text-transform: capitalize;
+}
+
+%layover-descr {
+
+    color: #898c8f;
+    font-size: $base-font;
 }

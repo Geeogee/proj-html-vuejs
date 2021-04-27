@@ -8,6 +8,20 @@ function initVue() {
 
             "navbarLinks" : [
 
+                // lavorare con oggetti
+                // esempio:
+                // {
+
+                //     "name" : "Home",
+                //     "url" : "#",
+                //     "title" : "alt",
+                //     "dropdown" : [
+                //         {
+                //             "dropdown1" : "testo"
+                //         }
+                //     ]
+                // }
+
                 "Home",
                 "Elements",
                 "Features",
@@ -168,7 +182,8 @@ function initVue() {
                 
             
             "showDescr" : false,
-            "activePreview" : ""
+            "activePreview" : "",
+            "activeImageSlider" : 0
         },
 
         methods: {
@@ -177,7 +192,18 @@ function initVue() {
 
                 this.activePreview = id;
                 this.showDescr = true;
+            },
+
+            nextImage: function() {
+
+                const max = this.slider.length - 1;
+                (this.activeImageSlider == max) ? this.activeImageSlider = 0 : this.activeImageSlider++
             }
+        },
+
+        mounted: function() {
+
+            setInterval(this.nextImage, 2000);
         }
     })
 }

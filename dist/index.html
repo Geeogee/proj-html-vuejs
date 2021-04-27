@@ -89,19 +89,19 @@
                     <div @mouseenter="showDescription(post.id)" @mouseleave="activePreview = ''" :id="post.id" v-for="post in previews" class="thumbnail">
                         <img :src="post.img">
                         <div class="layover"></div>
-                            <div class="thumb-text">
-                                <div class="label">
-                                    {{ post.label }}
-                                </div>
-                                <h2>
-                                    {{ post.title }}
-                                </h2>
-                                <transition name="fade">
-                                    <div v-if="(showDescr) && (activePreview == post.id)" class="descr">
-                                        {{ post.descr }}
-                                    </div>
-                                </transition>
+                        <div class="thumb-text">
+                            <div class="label">
+                                {{ post.label }}
                             </div>
+                            <h2>
+                                {{ post.title }}
+                            </h2>
+                            <transition name="fade">
+                                <div v-if="(showDescr) && (activePreview == post.id)" class="descr">
+                                    {{ post.descr }}
+                                </div>
+                            </transition>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -163,7 +163,16 @@
                             </h3>
 
                             <div id="slider">
-                                <img v-for="post in slider" :src="post.img">
+                                <img v-for="(post, index) in slider" :src="(index == activeImageSlider) ? post.img : ''">
+                                <div class="layover"></div>
+                                <div class="thumb-text">
+                                    <div class="label">
+                                        {{ slider[activeImageSlider].label }}
+                                    </div>
+                                    <h2>
+                                        {{ slider[activeImageSlider].title }}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                         <div id="featured-author">

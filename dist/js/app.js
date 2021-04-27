@@ -11,7 +11,19 @@ function initVue() {
   new Vue({
     el: "#app",
     data: {
-      "navbarLinks": ["Home", "Elements", "Features", "Pages", "Portfolio", "Blog", "Shop"],
+      "navbarLinks": [// lavorare con oggetti
+      // esempio:
+      // {
+      //     "name" : "Home",
+      //     "url" : "#",
+      //     "title" : "alt",
+      //     "dropdown" : [
+      //         {
+      //             "dropdown1" : "testo"
+      //         }
+      //     ]
+      // }
+      "Home", "Elements", "Features", "Pages", "Portfolio", "Blog", "Shop"],
       "previews": [{
         "id": "post0",
         "img": "img/blog-46.jpg",
@@ -118,13 +130,21 @@ function initVue() {
         "title": "Why should I buy a smartwatch?"
       }],
       "showDescr": false,
-      "activePreview": ""
+      "activePreview": "",
+      "activeImageSlider": 0
     },
     methods: {
       showDescription: function showDescription(id) {
         this.activePreview = id;
         this.showDescr = true;
+      },
+      nextImage: function nextImage() {
+        var max = this.slider.length - 1;
+        this.activeImageSlider == max ? this.activeImageSlider = 0 : this.activeImageSlider++;
       }
+    },
+    mounted: function mounted() {
+      setInterval(this.nextImage, 2000);
     }
   });
 }

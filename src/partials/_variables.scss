@@ -16,3 +16,12 @@ $secondary-white: #FFF;
     justify-content: $jusitfy;
     align-items: $align;
 }
+
+@mixin absolute-text($top,$left,$width) {
+
+    position: absolute;
+    top: $top;
+    left: $left;
+    width: $width;
+    z-index: 2;
+}
