@@ -12,10 +12,79 @@
     .thumbnail {
 
         margin: 8px 0;
-        border: 1px solid #000;
         width: 450px;
         height: 250px;
-        background-color: red;
+        position: relative;
 
+        .layover {
+
+            @extend %layover;
+            transition: all .3s;
+        }
+
+        img {
+            position: relative;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .thumb-text {
+
+            position: absolute;
+            top: 60%;
+            left: 20px;
+            width: 80%;
+            z-index: 2;
+            transition: all .4s;
+
+            .label {
+
+                background-color: $primary-blue;
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-size: $small-font;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: $secondary-white
+            } 
+
+            h2 {
+
+                color: $secondary-white;
+                font-size: $large-font;
+            }
+
+            .descr {
+
+                color: #898c8f;
+                font-size: $base-font;
+            }
+
+        }
+
+        &:hover .thumb-text {
+            top: 20px;
+        }
+
+        &:hover .layover {
+
+            background-color: rgba(33,37,41,.8);
+        }
+
+        .fade-enter-active {
+
+            transition: all 1s;
+        }
+
+        .fade.leave-active {
+
+            transition: all .2s;
+        }
+
+        .fade-enter, .fade-leave-to {
+
+            opacity: 0;
+        }
     }
 }

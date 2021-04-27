@@ -85,8 +85,22 @@
         <main>
             <section id="posts-previews">
                 <div class="container">
-                    <div v-for="post in previews" class="thumbnail">
-                        {{ post.title }}
+                    <div @mouseenter="showDescription(post.id)" @mouseleave="activePreview = ''" :id="post.id" v-for="post in previews" class="thumbnail">
+                        <img :src="post.img">
+                        <div class="layover"></div>
+                            <div class="thumb-text">
+                                <div class="label">
+                                    {{ post.label }}
+                                </div>
+                                <h2>
+                                    {{ post.title }}
+                                </h2>
+                                <transition name="fade">
+                                    <div v-if="(showDescr) && (activePreview == post.id)" class="descr">
+                                        {{ post.descr }}
+                                    </div>
+                                </transition>
+                            </div>
                     </div>
                 </div>
             </section>
