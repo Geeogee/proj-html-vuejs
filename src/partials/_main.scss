@@ -161,6 +161,18 @@
                 }
             }
         }
+
+        #slider {
+
+            width: 450px;
+            height: 187.5px;
+
+            img {
+
+                max-width: 100%;
+                height: auto;
+            }
+        }
     }
 
 }

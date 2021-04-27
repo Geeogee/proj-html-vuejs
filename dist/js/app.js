@@ -103,17 +103,17 @@ function initVue() {
       }],
       "slider": [{
         "id": "slider0",
-        "img": "img/blog-56 (1).jpg",
+        "img": "img/blog-65 (1).jpg",
         "label": "technology",
         "title": "Main reasons to stop texting and driving"
       }, {
         "id": "slider1",
-        "img": "img/blog-66-jpg",
+        "img": "img/blog-66.jpg",
         "label": "recipes",
         "title": "Tips to help you quickly prepare your lunch"
       }, {
         "id": "slider2",
-        "img": "img/blog-67.jpg",
+        "img": "img/blog-67 (1).jpg",
         "label": "gadgets",
         "title": "Why should I buy a smartwatch?"
       }],
