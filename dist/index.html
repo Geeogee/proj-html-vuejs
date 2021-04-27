@@ -26,6 +26,7 @@
         <header>  
            <div id="header-top">
                 <div class="container">
+                    <!-- About us links -->
                     <ul>
                         <li>
                             Everything about Lifestyle, Travel and Gadgets!
@@ -43,7 +44,7 @@
                             Buy now
                         </li>
                     </ul>
-
+                    <!-- Social links -->
                     <ul>
                         <li>
                             <i class="fab fa-facebook-f"></i>
@@ -57,7 +58,7 @@
                     </ul>
                 </div>
            </div> 
-
+           <!-- Logo and banner -->
            <div id="header-mid"> 
                 <div class="container">
                     <img id="logo" src="img/logo-default-slim.png">
@@ -65,21 +66,30 @@
                     <div></div>
                 </div>
            </div>
-
+           <!-- Nav links -->
            <nav class="nav-menu">
                <div class="container">
                     <!-- Nav menù using VueJS -->
                     <!-- Search about components -->
                     <ul id="nav-links">
-                        <li v-for="link in navbarLinks">{{ link }}</li>
+                        <li v-for="link in navbarLinks">
+                            <a href="#">
+                                {{ link }}
+                            </a>
+                        </li>
                     </ul>
                </div>
            </nav>
-
         </header>
 
         <main>
-
+            <section id="posts-previews">
+                <div class="container">
+                    <div v-for="post in previews" class="thumbnail">
+                        {{ post.title }}
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>

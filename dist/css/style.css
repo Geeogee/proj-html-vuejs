@@ -57,9 +57,36 @@ header nav {
 header nav .container {
   flex-basis: 90%;
 }
-header nav .container ul > li {
+header nav .container #nav-links > li {
   margin: 0 20px;
 }
-header nav .container ul > li:first-child {
+header nav .container #nav-links > li:first-child {
   margin-left: 0;
+}
+header nav .container #nav-links a {
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #444444;
+}
+
+#posts-previews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#posts-previews .container {
+  flex-basis: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#posts-previews .thumbnail {
+  margin: 8px 0;
+  border: 1px solid #000;
+  width: 450px;
+  height: 250px;
+  background-color: red;
 }

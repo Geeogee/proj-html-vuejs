@@ -1,0 +1,21 @@
+#posts-previews {
+
+    @include flexbox(center,center);
+
+    .container {
+
+        @include container;
+        @include flexbox(space-between,center);
+        flex-wrap: wrap;
+    }
+
+    .thumbnail {
+
+        margin: 8px 0;
+        border: 1px solid #000;
+        width: 450px;
+        height: 250px;
+        background-color: red;
+
+    }
+}
