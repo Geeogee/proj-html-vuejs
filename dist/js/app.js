@@ -7,7 +7,21 @@
   \********************/
 /***/ (() => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Boolean\\proj-html-vuejs\\src\\app.js: Unexpected token, expected \",\" (20:12)\n\n\u001b[0m \u001b[90m 18 |\u001b[39m             ]\u001b[0m\n\u001b[0m \u001b[90m 19 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m             \u001b[32m\"dropdowns\"\u001b[39m \u001b[33m:\u001b[39m [\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 21 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 22 |\u001b[39m                 {\u001b[0m\n\u001b[0m \u001b[90m 23 |\u001b[39m                     \u001b[0m\n    at Parser._raise (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:776:17)\n    at Parser.raiseWithData (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:769:17)\n    at Parser.raise (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:737:17)\n    at Parser.unexpected (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:9736:16)\n    at Parser.expect (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:9722:28)\n    at Parser.parseObjectLike (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:11480:14)\n    at Parser.parseExprAtom (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:11048:23)\n    at Parser.parseExprSubscripts (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:10709:23)\n    at Parser.parseUpdate (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:10689:21)\n    at Parser.parseMaybeUnary (C:\\Boolean\\proj-html-vuejs\\node_modules\\@babel\\parser\\lib\\index.js:10667:23)");
+function initVue() {
+  new Vue({
+    el: "#app",
+    data: {
+      "navbarLinks": ["Home", "Elements", "Features", "Pages", "Portfolio", "Blog", "Shop"]
+    }
+  });
+}
+
+function init() {
+  console.log("Hello world!");
+  initVue();
+}
+
+document.addEventListener("DOMContentLoaded", init);
 
 /***/ }),
 

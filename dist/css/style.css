@@ -1,6 +1,65 @@
-body {
-  background-color: red;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-body h1 {
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
+header .container {
+  flex-basis: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header #header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #0088cc;
+}
+header #header-top ul {
   color: #FFF;
+  font-size: 11px;
+}
+header #header-top ul > li:first-child {
+  text-transform: none;
+  font-weight: 200;
+}
+header #header-top ul > li {
+  margin: 0 10px;
+  text-transform: uppercase;
+}
+header #header-mid {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header #header-mid #logo {
+  height: 50px;
+}
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header nav .container {
+  flex-basis: 90%;
+}
+header nav .container ul > li {
+  margin: 0 20px;
+}
+header nav .container ul > li:first-child {
+  margin-left: 0;
 }

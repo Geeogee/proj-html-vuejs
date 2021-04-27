@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Project</title>
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700&display=swap" rel="stylesheet"> 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -17,12 +22,60 @@
 <body>
     <div id="app">
        
-        <header>
+        <!-- Header-->
+        <header>  
+           <div id="header-top">
+                <div class="container">
+                    <ul>
+                        <li>
+                            Everything about Lifestyle, Travel and Gadgets!
+                        </li>
+                        <li>
+                            Sign in
+                        </li>
+                        <li>
+                            About us
+                        </li>
+                        <li>
+                            Contact us
+                        </li>
+                        <li>
+                            Buy now
+                        </li>
+                    </ul>
 
-            <ul>
-                <li v-for="navlink in navbarLinks">{{ navlink }}</li>
-            </ul>
-        
+                    <ul>
+                        <li>
+                            <i class="fab fa-facebook-f"></i>
+                        </li>
+                        <li>
+                            <i class="fab fa-twitter"></i>
+                        </li>
+                        <li>
+                            <i class="fab fa-linkedin-in"></i>
+                        </li>
+                    </ul>
+                </div>
+           </div> 
+
+           <div id="header-mid"> 
+                <div class="container">
+                    <img id="logo" src="img/logo-default-slim.png">
+
+                    <div></div>
+                </div>
+           </div>
+
+           <nav class="nav-menu">
+               <div class="container">
+                    <!-- Nav menù using VueJS -->
+                    <!-- Search about components -->
+                    <ul id="nav-links">
+                        <li v-for="link in navbarLinks">{{ link }}</li>
+                    </ul>
+               </div>
+           </nav>
+
         </header>
 
         <main>

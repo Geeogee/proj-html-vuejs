@@ -1,0 +1,18 @@
+// Colors
+
+$primary-blue: #0088cc;
+$secondary-white: #FFF;
+
+// Mixins
+
+@mixin container {
+
+    flex-basis: 90%;
+}
+
+@mixin flexbox($jusitfy,$align) {
+
+    display: flex;
+    justify-content: $jusitfy;
+    align-items: $align;
+}

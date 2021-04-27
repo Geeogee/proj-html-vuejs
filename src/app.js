@@ -16,13 +16,6 @@ function initVue() {
                 "Blog",
                 "Shop"
             ]
-
-            "dropdowns" : [
-
-                {
-                    
-                }
-            ]
         }
     })
 }

@@ -1,0 +1,70 @@
+header {
+
+    .container {
+        @include container;
+        @include flexbox(space-between,center)
+    }
+
+    ul {
+        @extend %nav-links;
+    }
+
+    #header-top {
+        
+        @include flexbox(center,center);
+        height: 50px;
+        background-color: $primary-blue;
+
+        ul {
+
+            color: $secondary-white;
+            font-size: $small-font;
+
+            & > li:first-child {
+
+                text-transform: none;
+                font-weight: 200;
+            }
+
+            & > li {
+
+                margin: 0 10px;
+                text-transform: uppercase;
+            }
+
+            
+        }
+
+    }
+
+    #header-mid {
+
+        height: 100px;
+        @include flexbox(center,center);
+        
+        #logo {
+
+            height: 50px;
+        }
+    }
+
+    nav {
+
+        @include flexbox(center,center);
+
+        .container {
+
+            @include container;
+
+            ul > li {
+
+                margin: 0 20px;
+
+                &:first-child {
+                    
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+%nav-links {
+
+    @include flexbox(center,center);
+    list-style: none;
+}
