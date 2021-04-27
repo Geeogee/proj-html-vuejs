@@ -1,6 +1,9 @@
+// SECTIONS PREVIEWS
+
 #posts-previews {
 
     @include flexbox(center,center);
+    background-color: #f7f7f7;
 
     .container {
 
@@ -53,6 +56,7 @@
 
                 color: $secondary-white;
                 font-size: $large-font;
+                text-transform: capitalize;
             }
 
             .descr {
@@ -87,4 +91,76 @@
             opacity: 0;
         }
     }
+}
+
+
+// SECTION POST RANKS 
+
+#posts-ranks {
+
+    @include flexbox(center,center);
+
+    .container {
+        @include container;
+        @include flexbox(space-between, center);
+    }
+
+    .rank {
+
+        flex-basis: 30%;
+
+        h3 {
+
+            color: $title-text;
+            font-size: $base-font;
+            text-transform: uppercase;
+        }
+
+        .wrapper-rank-post {
+
+            @include flexbox(flex-start,center);
+            padding: 20px 0;
+            border-bottom: 1px dotted #e2e2e2; 
+
+            .wrapper-image {
+    
+                width: 50px;
+                height: 50px;
+    
+                img {
+    
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+    
+            .wrapper-text {
+    
+                @include flexbox(center,flex-start);
+                flex-direction: column;
+                padding-left: 10px;
+
+                .title {
+
+                    a {
+                        color: #121416;
+                        text-decoration: none;
+                        text-transform: capitalize;
+                        font-size: $base-font;
+
+                        &:hover {
+
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                .date {
+
+                    font-size: $small-font;
+                    color: #888;
+                }
+            }
+        }
+    }
+
 }

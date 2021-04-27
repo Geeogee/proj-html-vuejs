@@ -83,6 +83,7 @@
         </header>
 
         <main>
+            <!-- Thumbnails -->
             <section id="posts-previews">
                 <div class="container">
                     <div @mouseenter="showDescription(post.id)" @mouseleave="activePreview = ''" :id="post.id" v-for="post in previews" class="thumbnail">
@@ -101,6 +102,71 @@
                                     </div>
                                 </transition>
                             </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ranks -->
+            <section id="posts-ranks">
+                <div class="container">
+                    <!-- Populars -->
+                    <div class="rank" id="popular-posts">
+                        <h3>
+                            Popular posts
+                        </h3>
+                        <div v-for="popular in popularPosts" class="wrapper-rank-post">
+                            <div class="wrapper-image">
+                                <a href="#">
+                                    <img :src="popular.icon">
+                                </a>
+                            </div>
+                            <div class="wrapper-text">
+                                <span class="title">
+                                    <a href="#">
+                                        {{popular.title}}
+                                    </a>
+                                </span>
+                                <span class="date">
+                                    {{popular.date}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recents -->
+                    <div class="rank" id="recent-posts">
+                        <h3>
+                            Recent posts
+                        </h3>
+                        <div v-for="recent in recentPosts" class="wrapper-rank-post">
+                            <div class="wrapper-image">
+                                <a href="#">
+                                    <img :src="recent.icon">
+                                </a>
+                            </div>
+                            <div class="wrapper-text">
+                                <span class="title">
+                                   <a href="#">
+                                        {{recent.title}}
+                                   </a> 
+                                </span>
+                                <span class="date">
+                                    {{recent.date}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Featured -->
+                    <div class="rank" id="feautred">
+                        <div id="featured-posts">
+                            <h3>
+                                Featured posts
+                            </h3>
+                        </div>
+                        <div id="featured-author">
+                            <h3>
+                                Featured author
+                            </h3>
+                        </div>
                     </div>
                 </div>
             </section>

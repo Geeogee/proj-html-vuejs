@@ -85,6 +85,7 @@ header nav .container #nav-links a {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f7f7f7;
 }
 #posts-previews .container {
   flex-basis: 90%;
@@ -128,6 +129,7 @@ header nav .container #nav-links a {
 #posts-previews .thumbnail .thumb-text h2 {
   color: #FFF;
   font-size: 20px;
+  text-transform: capitalize;
 }
 #posts-previews .thumbnail .thumb-text .descr {
   color: #898c8f;
@@ -147,4 +149,59 @@ header nav .container #nav-links a {
 }
 #posts-previews .thumbnail .fade-enter, #posts-previews .thumbnail .fade-leave-to {
   opacity: 0;
+}
+
+#posts-ranks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#posts-ranks .container {
+  flex-basis: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#posts-ranks .rank {
+  flex-basis: 30%;
+}
+#posts-ranks .rank h3 {
+  color: #212529;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+#posts-ranks .rank .wrapper-rank-post {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px dotted #e2e2e2;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-image {
+  width: 50px;
+  height: 50px;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-image img {
+  max-width: 100%;
+  height: auto;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 10px;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-text .title a {
+  color: #121416;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-text .title a:hover {
+  text-decoration: underline;
+}
+#posts-ranks .rank .wrapper-rank-post .wrapper-text .date {
+  font-size: 11px;
+  color: #888;
 }
