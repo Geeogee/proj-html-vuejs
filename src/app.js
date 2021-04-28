@@ -8,27 +8,6 @@ function initVue() {
 
             "navbarLinks" : [
 
-                // lavorare con oggetti
-                // esempio:
-                // {
-
-                //     "name" : "Home",
-                //     "url" : "#",
-                //     "title" : "alt",
-                //     "dropdown" : [
-                //         {
-                //             "dropdown1" : "testo"
-                //         }
-                //     ]
-                // }
-
-                // "Elements",
-                // "Features",
-                // "Pages",
-                // "Portfolio",
-                // "Blog",
-                // "Shop"
-
                 {
                     "name" : "Home",
                     "url" : "#",
@@ -413,6 +392,101 @@ function initVue() {
                 "Videos",
                 "Technology",
                 "Design"
+            ],
+
+            "allPosts" : [
+
+                {
+                    "id" : "allpost0",
+                    "img" : "img/blog-54.jpg",
+                    "title" : "How to Make Friends as a Grown-Up",
+                    "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
+                    "date" : {
+                        
+                        "day" : "12",
+                        "month" : "Jan"
+                    },
+                    "author" : "John Doe",
+                    "categories" : [
+                        "Lifestyle",
+                        "Travel"
+                    ],
+                    "comments" : 12
+                },
+
+        
+                {
+                    "id" : "allpost1",
+                    "img" : "img/blog-55 (1).jpg",
+                    "title" : "Simple Ways to Have a Pretty Face",
+                    "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
+                    "date" : {
+                        
+                        "day" : "12",
+                        "month" : "Jan"
+                    },
+                    "author" : "John Doe",
+                    "categories" : [
+                        "Photograpy",
+                        "Travel"
+                    ],
+                    "comments" : 12
+                },
+
+                {
+                    "id" : "allpost2",
+                    "img" : "img/blog-56 (1).jpg",
+                    "title" : "Ranking the greatest players in basketball",
+                    "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
+                    "date" : {
+                        
+                        "day" : "12",
+                        "month" : "Jan"
+                    },
+                    "author" : "John Doe",
+                    "categories" : [
+                        "Sports",
+                        "Business"
+                    ],
+                    "comments" : 12
+                },
+
+                {
+                    "id" : "allpost3",
+                    "img" : "img/blog-58 (1).jpg",
+                    "title" : "Top Camper Trailer Towing Tips",
+                    "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
+                    "date" : {
+                        
+                        "day" : "12",
+                        "month" : "Jan"
+                    },
+                    "author" : "John Doe",
+                    "categories" : [
+                        "Travel",
+                        "Lifestyle"
+                    ],
+                    "comments" : 12
+                },
+
+                {
+                    "id" : "allpost4",
+                    "img" : "",
+                    "title" : "10 Best Travel Tips After 5 Years Traveling The World",
+                    "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
+                    "date" : {
+                        
+                        "day" : "8",
+                        "month" : "Jan"
+                    },
+                    "author" : "John Doe",
+                    "categories" : [
+                        "Travel",
+                        "Lifestyle"
+                    ],
+                    "comments" : 12
+                },
+
             ],
                 
             "showDescr" : false,

@@ -177,6 +177,7 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
 }
 
 #posts-ranks {
+  padding: 50px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -354,14 +355,15 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: green;
+}
+#all-articles .container .container-articles {
+  flex-basis: 70%;
 }
 #all-articles .container .wrapper-article {
   display: flex;
   flex-direction: column;
-  background-color: red;
-  flex-basis: 70%;
   height: 600px;
+  padding: 50px 0;
 }
 #all-articles .container .wrapper-article .wrapper-image {
   width: 100%;
@@ -369,39 +371,113 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
 }
 #all-articles .container .wrapper-article .wrapper-image img {
   max-width: 100%;
-  height: auto;
+  max-height: auto;
 }
 #all-articles .container .wrapper-article .wrapper-infos {
   display: flex;
-  background-color: blue;
-  height: 300px;
 }
 #all-articles .container .wrapper-article .wrapper-infos .date {
-  background-color: yellow;
-  height: 100%;
   flex-basis: 10%;
+  display: flex;
+  flex-direction: column;
+}
+#all-articles .container .wrapper-article .wrapper-infos .date .day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  color: #212529;
+  font-weight: 700;
+  width: 50px;
+  height: 70px;
+}
+#all-articles .container .wrapper-article .wrapper-infos .date .month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  background-color: #212529;
+  color: #f7f7f7;
+  width: 50px;
+  text-transform: uppercase;
 }
 #all-articles .container .wrapper-article .wrapper-infos .wrapper-text {
-  background-color: orange;
-  height: 100%;
   flex-basis: 90%;
+  border-bottom: 1px dotted #e2e2e2;
 }
 #all-articles .container .wrapper-article .wrapper-infos .wrapper-text h2 {
-  background-color: green;
-  height: 30px;
+  color: #212529;
 }
 #all-articles .container .wrapper-article .wrapper-infos .wrapper-text .descr {
-  background-color: blue;
-  height: 100px;
+  color: #777777;
 }
-#all-articles .container .wrapper-article .wrapper-infos .wrapper-text .author {
-  background-color: purple;
-  height: 100px;
+#all-articles .container .wrapper-article .wrapper-infos .wrapper-text .author ul {
+  display: flex;
+  list-style-type: none;
+  padding: 10px 0;
+  color: #777;
+  font-size: 13px;
+}
+#all-articles .container .wrapper-article .wrapper-infos .wrapper-text .author ul li {
+  margin: 0 10px;
+}
+#all-articles .container .wrapper-article .wrapper-infos .wrapper-text .author ul a {
+  text-decoration: none;
+  color: #0088cc;
+}
+#all-articles .container .wrapper-article .wrapper-infos .wrapper-text .author ul a:hover {
+  text-decoration: underline;
 }
 #all-articles .container aside {
-  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  margin: 50px 0;
+  padding: 20px;
   flex-basis: 30%;
-  height: 200px;
   position: sticky;
   top: 0;
+}
+#all-articles .container aside > * {
+  margin-bottom: 20px;
+}
+#all-articles .container aside a {
+  color: #0088cc;
+  text-decoration: none;
+}
+#all-articles .container aside h3 {
+  color: #212529;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+#all-articles .container aside .post {
+  display: flex;
+}
+#all-articles .container aside .post .social-icon {
+  font-size: 20px;
+  padding: 5px;
+}
+#all-articles .container aside .post .message {
+  display: flex;
+  flex-direction: column;
+  color: #777777;
+  font-size: 14px;
+}
+#all-articles .container aside .post .message a {
+  font-size: 11px;
+}
+#all-articles .container aside #lastest-photos > * {
+  margin: 20px 0;
+}
+#all-articles .container aside .wrapper-labels {
+  display: flex;
+}
+#all-articles .container aside .wrapper-labels .label {
+  background-color: #212529;
+  color: #FFF;
+  font-size: 11px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 0 2px;
+  font-weight: 700;
 }

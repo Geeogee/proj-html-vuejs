@@ -225,31 +225,120 @@
             <!-- All articles -->
             <section id="all-articles">
                 <div class="container">
-                    <article class="wrapper-article">
+                    <div class="container-articles">
+                        <article v-for="article in allPosts" class="wrapper-article">
 
-                        <div class="wrapper-image">
-                            <img src="img/blog-55 (1).jpg">
-                        </div>
-
-                        <div class="wrapper-infos">
-                            <div class="date">
-                                <span class="day"></span>
-                                <span class="month"></span>
+                            <div class="wrapper-image">
+                                <img :src="article.img">
                             </div>
 
-                            <div class="wrapper-text">
-                                <h2><!-- Title --> </h2>
-                                <div class="descr">
-
+                            <div class="wrapper-infos">
+                                <div class="date">
+                                    <span class="day">{{ article.date.day }}</span>
+                                    <span class="month">{{ article.date.month }}</span>
                                 </div>
-                                <div class="author">
 
+                                <div class="wrapper-text">
+                                    <h2>
+                                        {{ article.title }}
+                                    </h2>
+                                    <div class="descr">
+                                        {{ article.descr }}
+                                    </div>
+                                    <div class="author">
+                                        <ul>
+                                            <li>
+                                                <i class="fas fa-user"></i> by {{ article.author }}
+                                            </li>
+                                            <li>
+                                                <i class="far fa-folder"></i> 
+                                                <span v-for="category in article.categories">
+                                                    <a href="#">
+                                                        {{ category }} 
+                                                    </a>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <i class="far fa-comments"></i>
+                                                <a href="#">
+                                                    {{ article.comments }} comments
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
                     <aside>
+                        <div id="lastest-posts">
 
+                            <h3>
+                                Lastest from twitter
+                            </h3>
+                            <div class="post">
+                                <div class="social-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                                <div class="message">
+                                    <span class="text">
+                                        If you have any suggestions for the next updates, let us know.
+                                    </span>
+                                    <span class="date">
+                                        <a href="#">
+                                            01:05 PM Sep 18th
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="post">
+                                <div class="social-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                                <div class="message">
+                                    <span class="text">
+                                        We have just updated Porto Admin. Check the changelog for more information.
+                                    </span>
+                                    <span class="date">
+                                        <a href="#">
+                                            01:04 PM Sep 18th
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="lastest-photos">
+                            <h3>
+                                Photos from instagram
+                            </h3>
+                            <h3>
+                                 Tags 
+                            </h3>
+                            <div class="wrapper-labels">
+                                <div class="label">
+                                    Design
+                                </div>
+                                <div class="label">
+                                    Brands
+                                </div>
+                                <div class="label">
+                                    Video
+                                </div>
+                                <div class="label">
+                                    Business
+                                </div>
+                                <div class="label">
+                                    Travel
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3> Find us on Facebook </h3>
+
+                        <a href="#">
+                            Our page
+                        </a>
                     </aside>
                 </div>
             </section>

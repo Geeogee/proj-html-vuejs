@@ -85,6 +85,7 @@
 
 #posts-ranks {
 
+    padding: 50px 0;
     @include flexbox(center,center);
 
     .container {
@@ -317,16 +318,18 @@
 
         @include container;
         @include flexbox(center,flex-start);
-        background-color: green;
+        
+        .container-articles {
 
+            flex-basis: 70%;
+        }
         .wrapper-article {
 
             display: flex;
             flex-direction: column;
-            background-color: red;
-            flex-basis: 70%;
             height: 600px;
-
+            padding: 50px 0;
+  
             .wrapper-image {
 
                 width: 100%;
@@ -335,45 +338,81 @@
                 img {
 
                     max-width: 100%;
-                    height: auto;
+                    max-height: auto;
                 }
             }
 
             .wrapper-infos {
 
                 display: flex;
-                background-color: blue;
-                height: 300px;
 
                 .date {
 
-                    background-color: yellow;
-                    height: 100%;
                     flex-basis: 10%;
+                    display: flex;
+                    flex-direction: column;
+
+                    .day {
+
+                        @include flexbox(center,center);
+                        background-color: #f7f7f7;
+                        color: #212529;
+                        font-weight: 700;
+                        width: 50px;
+                        height: 70px;
+                    }
+
+                    .month {
+
+                        @include flexbox(center,center);
+                        font-size: $small-font;
+                        background-color: #212529;
+                        color: #f7f7f7;
+                        width: 50px;
+                        text-transform: uppercase;
+                    }
                 }
 
                 .wrapper-text {
-
-                    background-color: orange;
-                    height: 100%;
                     flex-basis: 90%;
-
+                    border-bottom: 1px dotted #e2e2e2;
                     h2 {
 
-                        background-color: green;
-                        height: 30px;
+                        color: #212529;
                     }
+
 
                     .descr {
 
-                        background-color: blue;
-                        height: 100px;
+                        color: #777777;
                     }
 
                     .author {
 
-                        background-color: purple;
-                        height: 100px;
+                        ul {
+
+                            display: flex;
+                            list-style-type: none;
+                            padding: 10px 0;
+                            color: #777;
+                            font-size: $small-font + 2px;
+
+                            li {
+
+                                margin: 0 10px;
+                            }
+
+                            a {
+
+                                text-decoration: none;
+                                color: $primary-blue;
+
+                                &:hover {
+
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -381,11 +420,76 @@
 
         aside {
 
-            background-color: blue;
+            display: flex;
+            flex-direction: column;
+            margin: 50px 0;
+            padding: 20px;
             flex-basis: 30%;
-            height: 200px;
             position: sticky;
             top: 0;
+
+            & > * {
+
+                margin-bottom: 20px;
+            }
+
+            a {
+                color: $primary-blue;
+                text-decoration: none;
+            }
+
+            h3 {
+
+                color: #212529;
+                font-size: $base-font;
+                text-transform: uppercase;
+            }
+
+            .post {
+
+                display: flex;
+
+
+                .social-icon {
+
+                    font-size: $large-font;
+                    padding: 5px;
+                }
+
+                .message {
+
+                    display: flex;
+                    flex-direction: column;
+                    color: #777777;
+                    font-size: $base-font;
+
+                    a {
+                        font-size: $small-font;
+                    }
+                }
+            }
+
+            #lastest-photos > * {
+
+                margin: 20px 0;
+            }
+
+            .wrapper-labels {
+
+                display: flex;
+
+                .label {
+
+                    background-color: #212529;
+                    color: #FFF;
+                    font-size: $small-font;
+                    text-transform: uppercase;
+                    border-radius: 20px;
+                    padding: 5px 10px;
+                    margin: 0 2px;
+                    font-weight: 700;
+                }
+            }
         }
     }
 
