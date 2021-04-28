@@ -23,7 +23,148 @@ function initVue() {
       //         }
       //     ]
       // }
-      "Home", "Elements", "Features", "Pages", "Portfolio", "Blog", "Shop"],
+      // "Elements",
+      // "Features",
+      // "Pages",
+      // "Portfolio",
+      // "Blog",
+      // "Shop"
+      {
+        "name": "Home",
+        "url": "#",
+        "hasDropdown": true,
+        "dropdownType": "small",
+        "dropdown": [{
+          "name": "Landing Page",
+          "url": "#",
+          "hasDropdown": false
+        }, {
+          "name": "Demos",
+          "url": "#",
+          "hasDropdown": false
+        }, {
+          "name": "Classic",
+          "url": "#",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Classic 1",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Classic 2",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Classic 3",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }]
+      }, {
+        "name": "Elements",
+        "url": "#",
+        "hasDropdown": true,
+        "dropdownType": "big",
+        "dropdown": [{
+          "name": "Elements1",
+          "url": "",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Accordions",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Toggles",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Tabs",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }, {
+          "name": "Elements2",
+          "url": "",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Buttons",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Badges",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Lists",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }, {
+          "name": "Elements3",
+          "url": "",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Typography",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Call to actions",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Pricing Tables",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }, {
+          "name": "Elements4",
+          "url": "",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Headings",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Dividers",
+            "url": "#",
+            "hasDropdown": false
+          }, {
+            "name": "Animations",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }]
+      }, {
+        "name": "Features",
+        "url": "#",
+        "hasDropdown": true,
+        "dropdownType": "small",
+        "dropdown": [{
+          "name": "Headers",
+          "url": "#",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Overview",
+            "url": "#",
+            "hasDropdown": true,
+            "dropdown": [{
+              "name": "Overview1",
+              "url": "#",
+              "hasDropdown": false
+            }]
+          }]
+        }, {
+          "name": "Navigations",
+          "url": "#",
+          "hasDropdown": true,
+          "dropdown": [{
+            "name": "Navigation1",
+            "url": "#",
+            "hasDropdown": false
+          }]
+        }]
+      }],
+      // End Navbar
       "previews": [{
         "id": "post0",
         "img": "img/blog-46.jpg",
@@ -117,17 +258,20 @@ function initVue() {
         "id": "slider0",
         "img": "img/blog-65 (1).jpg",
         "label": "technology",
-        "title": "Main reasons to stop texting and driving"
+        "title": "Main reasons to stop texting and driving",
+        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }, {
         "id": "slider1",
         "img": "img/blog-66.jpg",
         "label": "recipes",
-        "title": "Tips to help you quickly prepare your lunch"
+        "title": "Tips to help you quickly prepare your lunch",
+        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }, {
         "id": "slider2",
         "img": "img/blog-67 (1).jpg",
         "label": "gadgets",
-        "title": "Why should I buy a smartwatch?"
+        "title": "Why should I buy a smartwatch?",
+        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }],
       "featAuthor": {
         "name": "John Doe",

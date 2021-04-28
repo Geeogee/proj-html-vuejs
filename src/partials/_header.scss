@@ -5,10 +5,6 @@ header {
         @include flexbox(space-between,center)
     }
 
-    ul {
-        @extend %nav-links;
-    }
-
     #header-top {
         
         @include flexbox(center,center);
@@ -17,6 +13,7 @@ header {
 
         ul {
 
+            @extend %nav-links;
             color: $secondary-white;
             font-size: $small-font;
 
@@ -66,15 +63,39 @@ header {
                 }
             }
 
-            #nav-links {
+            #nav-links { 
+
+                @extend %nav-links;
 
                 a {
-                    text-decoration: none;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    font-size: $medium-font;
-                    color: $dark-grey;
+
+                    position: relative;
                 }
+
+                & > li {
+
+                    background-color: red;
+                    border: 1px solid #000;
+
+                    & > .dropdown {
+
+                        display: none;
+                        position: absolute;
+                        z-index: 99;
+                    }
+
+                    &:hover > .dropdown {
+
+                        display: block;
+                        background-color: blue;
+
+                        .sub-dropdown {
+
+                            background-color: green;
+                        }
+                    }
+                }
+                
             }
         }
     }

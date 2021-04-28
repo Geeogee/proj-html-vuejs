@@ -70,12 +70,26 @@
            <nav class="nav-menu">
                <div class="container">
                     <!-- Nav menù using VueJS -->
-                    <!-- Search about components -->
                     <ul id="nav-links">
+                        <!-- Link -->
                         <li v-for="link in navbarLinks">
                             <a href="#">
-                                {{ link }}
+                                {{ link.name }}
                             </a>
+                            <!-- Dropdown -->
+                            <ul v-if="link.hasDropdown" class="dropdown">
+                                <li v-for="dropdown in link.dropdown">
+                                    <a href="#">
+                                        {{ dropdown.name }}
+                                    </a>
+                                    <!-- Sub Dropdown -->
+                                    <ul v-if="dropdown.hasDropdown" class="sub-dropdown">
+                                        <li v-for="dropdown in dropdown.dropdown">
+                                            {{ dropdown.name }}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                </div>
@@ -96,11 +110,6 @@
                             <h2>
                                 {{ post.title }}
                             </h2>
-                            <!-- <transition name="fade">
-                                <div v-if="(showDescr) && (activePreview == post.id)" class="descr">
-                                    {{ post.descr }}
-                                </div>
-                            </transition> -->
                             <div class="descr">
                                 {{ post.descr }}
                             </div>
@@ -175,6 +184,9 @@
                                     <h2>
                                         {{ slider[activeImageSlider].title }}
                                     </h2>
+                                    <div class="descr">
+                                        {{slider[activeImageSlider].descr }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

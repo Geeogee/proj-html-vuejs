@@ -4,6 +4,7 @@
     list-style: none;
 }
 
+
 // Label
 
 %label {
@@ -36,11 +37,13 @@
     color: $secondary-white;
     font-size: $large-font;
     text-transform: capitalize;
+    min-height: 60px;
 }
 
 %layover-descr {
 
-    color: #898c8f;
+    color: #FFF;
+    opacity: .6;
     font-size: $base-font;
     font-weight: 600;
 }

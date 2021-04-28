@@ -8,7 +8,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-header ul {
+header nav .container #nav-links, header #header-top ul {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,10 +40,12 @@ header ul {
   color: #FFF;
   font-size: 20px;
   text-transform: capitalize;
+  min-height: 60px;
 }
 
 #posts-ranks .rank #slider .thumb-text .descr, #posts-previews .thumbnail .thumb-text .descr {
-  color: #898c8f;
+  color: #FFF;
+  opacity: 0.6;
   font-size: 14px;
   font-weight: 600;
 }
@@ -97,11 +99,23 @@ header nav .container #nav-links > li:first-child {
   margin-left: 0;
 }
 header nav .container #nav-links a {
-  text-decoration: none;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 15px;
-  color: #444444;
+  position: relative;
+}
+header nav .container #nav-links > li {
+  background-color: red;
+  border: 1px solid #000;
+}
+header nav .container #nav-links > li > .dropdown {
+  display: none;
+  position: absolute;
+  z-index: 99;
+}
+header nav .container #nav-links > li:hover > .dropdown {
+  display: block;
+  background-color: blue;
+}
+header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
+  background-color: green;
 }
 
 #posts-previews {
@@ -124,7 +138,7 @@ header nav .container #nav-links a {
   position: relative;
 }
 #posts-previews .thumbnail .layover {
-  transition: all 0.3s;
+  transition: all 0.4s;
 }
 #posts-previews .thumbnail img {
   position: relative;
@@ -142,10 +156,8 @@ header nav .container #nav-links a {
   transition: all 0.3s;
   transition-delay: 0.3s;
 }
-#posts-previews .thumbnail .thumb-text h2 {
-  min-height: 60px;
-}
 #posts-previews .thumbnail .thumb-text .descr {
+  max-height: 0;
   visibility: hidden;
   transition: all ease 0.3s;
   transition-delay: 0.3s;
@@ -159,6 +171,7 @@ header nav .container #nav-links a {
   background-color: rgba(33, 37, 41, 0.8);
 }
 #posts-previews .thumbnail:hover .descr {
+  max-height: 100%;
   visibility: visible;
   transition-delay: 0s;
 }
@@ -276,4 +289,27 @@ header nav .container #nav-links a {
   left: 20px;
   width: 80%;
   z-index: 2;
+  max-height: 50%;
+  overflow: hidden;
+  transition: all 0.3s;
+  transition-delay: 0.3s;
+}
+#posts-ranks .rank #slider .thumb-text .descr {
+  max-height: 0;
+  visibility: hidden;
+  transition: all ease 0.3s;
+  transition-delay: 0.3s;
+}
+#posts-ranks .rank #slider:hover .thumb-text {
+  top: 20px;
+  max-height: 90%;
+  transition-delay: 0s;
+}
+#posts-ranks .rank #slider:hover .layover {
+  background-color: rgba(33, 37, 41, 0.8);
+}
+#posts-ranks .rank #slider:hover .descr {
+  max-height: 100%;
+  visibility: visible;
+  transition-delay: 0s;
 }

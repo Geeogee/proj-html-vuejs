@@ -22,7 +22,7 @@
         .layover {
 
             @extend %layover;
-            transition: all .3s;
+            transition: all .4s;
         }
 
         img {
@@ -47,12 +47,12 @@
             h2 {
 
                 @extend %layover-h2;
-                min-height: 60px;
             }
 
             .descr {
 
                 @extend %layover-descr;
+                max-height: 0;
                 visibility: hidden;
                 transition: all ease .3s;
                 transition-delay: .3s;
@@ -73,6 +73,7 @@
         }
 
         &:hover .descr {
+            max-height: 100%;
             visibility: visible;
             transition-delay: 0s;
         }
@@ -222,6 +223,10 @@
             .thumb-text {
 
                 @include absolute-text(50%,20px,80%);
+                max-height: 50%;
+                overflow: hidden;
+                transition: all .3s;
+                transition-delay: .3s;
     
                 .label {
     
@@ -231,13 +236,37 @@
                 h2 {
     
                     @extend %layover-h2;
+                   
                 }
     
                 .descr {
     
                     @extend %layover-descr;
+                    max-height: 0;
+                    visibility: hidden;
+                    transition: all ease .3s;
+                    transition-delay: .3s;
                 }
     
+            }
+
+            &:hover .thumb-text {
+
+                top: 20px;
+                max-height: 90%;
+                transition-delay: 0s;
+            }
+    
+            &:hover .layover {
+    
+                background-color: rgba(33,37,41,.8);
+            }
+    
+            &:hover .descr {
+
+                max-height: 100%;
+                visibility: visible;
+                transition-delay: 0s;
             }
         }
 
