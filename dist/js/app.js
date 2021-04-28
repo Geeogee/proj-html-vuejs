@@ -15,135 +15,52 @@ function initVue() {
         "name": "Home",
         "url": "#",
         "hasDropdown": true,
+        "dropdownOpen": false,
         "dropdownType": "small",
         "dropdown": [{
           "name": "Landing Page",
-          "url": "#",
-          "hasDropdown": false
+          "url": "#"
         }, {
           "name": "Demos",
-          "url": "#",
-          "hasDropdown": false
+          "url": "#"
         }, {
           "name": "Classic",
-          "url": "#",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Classic 1",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Classic 2",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Classic 3",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "url": "#"
         }]
       }, {
         "name": "Elements",
         "url": "#",
         "hasDropdown": true,
+        "dropdownOpen": false,
         "dropdownType": "big",
         "dropdown": [{
-          "name": "Elements1",
-          "url": "",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Accordions",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Toggles",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Tabs",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "name": "Elemets1",
+          "url": "#"
         }, {
-          "name": "Elements2",
-          "url": "",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Buttons",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Badges",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Lists",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "name": "Elemets2",
+          "url": "#"
         }, {
-          "name": "Elements3",
-          "url": "",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Typography",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Call to actions",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Pricing Tables",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "name": "Elemets3",
+          "url": "#"
         }, {
           "name": "Elements4",
-          "url": "",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Headings",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Dividers",
-            "url": "#",
-            "hasDropdown": false
-          }, {
-            "name": "Animations",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "url": "#"
         }]
       }, {
         "name": "Features",
         "url": "#",
         "hasDropdown": true,
+        "dropdownOpen": false,
         "dropdownType": "small",
         "dropdown": [{
-          "name": "Headers",
-          "url": "#",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Overview",
-            "url": "#",
-            "hasDropdown": true,
-            "dropdown": [{
-              "name": "Overview1",
-              "url": "#",
-              "hasDropdown": false
-            }]
-          }]
+          "name": "Features1",
+          "url": "#"
         }, {
-          "name": "Navigations",
-          "url": "#",
-          "hasDropdown": true,
-          "dropdown": [{
-            "name": "Navigation1",
-            "url": "#",
-            "hasDropdown": false
-          }]
+          "name": "Features2",
+          "url": "#"
+        }, {
+          "name": "Features3",
+          "url": "#"
         }]
       }],
       // End Navbar
@@ -322,44 +239,59 @@ function initVue() {
         "categories": ["Travel", "Lifestyle"],
         "comments": 12
       }],
-      "footer": [{
-        "name": "About the Blog",
-        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna semper scelerisque."
-      }, {
+      "footerAboutUs": {
+        "name": "About the blog",
+        "items": [{
+          "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna semper scelerisque."
+        }, {
+          "descr": "Praesent venenatis turpis vitae purus semper, eget sagittis velit venenatis ptent taciti sociosqu ad litora..."
+        }]
+      },
+      "footerRecentPosts": {
         "name": "Recent Posts",
-        "posts": [{
+        "items": [{
           "id": "footerRecent0",
           "img": "img/our-office-4-square.jpg",
           "text": "Lorem ipsum dolor sit, consectetur adipiscing elit.",
           "date": "12:53 AM Dec 19th"
         }, {
           "id": "footerRecent1",
-          "img": "img/office-5-square.jpg",
+          "img": "img/our-office-5-square.jpg",
           "text": "Lorem ipsum dolor sit, consectetur adipiscing elit.",
           "date": "12:53 AM Dec 19th"
         }]
-      }, {
+      },
+      "footerRecentComments": {
         "name": "Recent comments",
-        "comments": [{
+        "items": [{
           "id": "footerComment0",
           "author": "John Doe",
           "postTitle": "Lorem ipsum dolor sit amet",
+          "url": "#",
           "date": "12:53 AM Dec 19th"
         }, {
           "id": "footerComment1",
           "author": "John Doe",
           "postTitle": "Lorem ipsum dolor sit amet",
+          "url": "#",
           "date": "12:53 AM Dec 19th"
         }]
-      }, {
+      },
+      "footerCategories": {
         "name": "Categories",
-        "categories": ["Gadgets", "Photography", "Lifestyle", "Fashion", "Recipes", "Travel", "Business", "Architecture", "Reviews", "Sports", "Videos", "Technology", "Design"]
-      }],
+        "items": ["Gadgets", "Photography", "Lifestyle", "Fashion", "Recipes", "Travel", "Business", "Architecture", "Reviews", "Sports", "Videos", "Technology", "Design"]
+      },
       "showDescr": false,
       "activePreview": "",
       "activeImageSlider": 0
     },
     methods: {
+      showDropdown: function showDropdown(link) {
+        link.dropdownOpen = true;
+      },
+      closeDropdown: function closeDropdown(link) {
+        link.dropdownOpen = false;
+      },
       showDescription: function showDescription(id) {
         this.activePreview = id;
         this.showDescr = true;
@@ -377,6 +309,13 @@ function initVue() {
         var content = document.querySelector("#carousel > .container");
         var boxWidth = document.querySelector(".category").clientWidth;
         content.scrollLeft += boxWidth + 20;
+      }
+    },
+    filters: {
+      commentNotification: function commentNotification(post) {
+        var chevron = "<i class=\"fas fa-chevron-right\"></i>";
+        var string = "\n                                <span class=\"text\">\n                                    <span class=\"icon\">\n                                        ".concat(chevron, "\n                                    </span> \n                                    <span class=\"author\">\n                                        ").concat(post.author, "\n                                    </span> \n                                    commented on \n                                    <a href=\"").concat(post.url, "\">\n                                        ").concat(post.postTitle, "\n                                    </a>\n                                    <div class=\"date\">\n                                        ").concat(post.date, "\n                                    </div>\n                                </span>\n                            ");
+        return string;
       }
     },
     mounted: function mounted() {

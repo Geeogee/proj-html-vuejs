@@ -1,8 +1,26 @@
 #footer-top {
 
-   
+    padding: 50px 0;
     display: flex;
     justify-content: center;
+    background-color: #212529;
+
+    ul {
+
+        list-style-type: none;
+    }
+
+    h3 {
+
+        color: #FFF;
+        font-size: $base-font;
+        text-transform: uppercase;
+    }
+
+    .text {
+
+        font-size: $small-font + 2px;
+    }
 
     .container {
 
@@ -10,21 +28,199 @@
   
     }
 
-    height: 400px;
-    background-color: #212529;
-
-    .footer-nav {
+    #footer-nav-links {
 
         display: flex;
-        flex-basis: 100%;
         justify-content: space-between;
-        list-style-type: none;
         
+        & > li:first-child {
+
+            flex-grow: 1;
+        }
+
+        & > li {
+
+            flex-basis: 20%;
+        }
+
+        #about-us {
+
+            a {
+
+                color: #FFF;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: $base-font;
+            }
+
+            .text {
+
+                color: #777;
+            }
+
+            & > ul > li {
+
+                margin: 10px 0;
+            }
+        }
+
+        #recent-posts {
+
+            .wrapper-post {
+
+                display: flex;
+
+                .wrapper-icon {
+
+                    flex-basis: 70px;
+                    height: 70px;
+                    border-radius: 50%;
+    
+                    img {
+    
+                        max-width: 100%;
+                        height: auto;
+                        border-radius: 50%;
+                    }
+                }
+
+                .infos {
+
+                    flex-basis: calc(100% - 70px);
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px;
+
+                    .text {
+
+                        color: #FFF;
+                    }
+
+                    .date {
+
+                        font-size: $small-font;
+                        color: #777;
+                    }
+                }
+            }
+
+            & > ul > li {
+
+                margin: 10px 0;
+            }
+        }
+
+        #recent-comments {
+
+            .text {
+
+                color: #FFF;
+            }
+
+            .icon {
+
+                color: $primary-blue;
+            }
+
+            a {
+
+                color: $primary-blue;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .author {
+
+                font-weight: 700;
+            }
+
+            .date {
+
+                color: #777;
+                font-size: $small-font;
+            }
+
+            & > ul > li {
+
+                margin: 10px 0;
+            }
+        }
+
+        #categories {
+
+            ul {
+
+                display: flex;
+                flex-wrap: wrap;
+
+                & > * {
+
+                    margin: 2px 3px;
+                }
+            }
+        
+            .label {
+
+                font-size: $small-font;
+                background-color: #000;
+                padding: 5px;
+                border-radius: 5px;
+                color: #FFF;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+        }
     }
 }
 
 #footer-bot {
 
-    height: 150px;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
     background-color: #1c2023;
+    font-size: $small-font;
+    color: #555;
+
+    .container {
+
+        @include container;
+    }
+
+    ul {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style-type: none;
+
+        & > li {
+
+            margin: 0 10px;
+        }
+
+        #copyright {
+
+            flex-grow: 1;
+        }
+
+        a {
+
+            color: #555;
+            text-decoration: none;
+
+            &:hover {
+
+                text-decoration: underline;
+            }
+        }
+    }
+
+    #logo-footer {
+
+        width: 80px;
+        opacity: .5;
+    }
 }

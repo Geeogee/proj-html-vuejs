@@ -71,23 +71,11 @@
                <div class="container">
                     <!-- Nav menù using VueJS -->
                     <ul id="nav-links">
-                        <!-- Link -->
-                        <li v-for="link in navbarLinks">
-                            <a href="#">
-                                {{ link.name }}
-                            </a>
-                            <!-- Dropdown -->
-                            <ul v-if="link.hasDropdown" class="dropdown">
+                        <li v-for="link in navbarLinks" @mouseenter="showDropdown(link)" @mouseleave="closeDropdown(link)">
+                            {{ link.name }}
+                            <ul :class="(link.dropdownType == 'small') ? 'dropdown' : 'big-dropdown'"  v-if="link.dropdownOpen">
                                 <li v-for="dropdown in link.dropdown">
-                                    <a href="#">
-                                        {{ dropdown.name }}
-                                    </a>
-                                    <!-- Sub Dropdown -->
-                                    <ul v-if="dropdown.hasDropdown" class="sub-dropdown">
-                                        <li v-for="dropdown in dropdown.dropdown">
-                                            {{ dropdown.name }}
-                                        </li>
-                                    </ul>
+                                    {{ dropdown.name }}
                                 </li>
                             </ul>
                         </li>
@@ -345,15 +333,78 @@
         </main>
 
         <footer>
-
-            
             <div id="footer-top">
 
                 <div class="container">
-                    <ul class="footer-nav">
-                        <li v-for="section in footer">
-                            {{ section.name }}
+                    <ul id="footer-nav-links">
+                        <li id="about-us"> 
+                            <h3>
+                                {{ footerAboutUs.name }}
+                            </h3>
+                            <ul>
+                                <li v-for="item in footerAboutUs.items">
+                                    <span class="text">
+                                        {{ item.descr }}
+                                    </span>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        View more <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+
                         </li>
+
+                        <li id="recent-posts">
+                            <h3>
+                                {{ footerRecentPosts.name }}
+                            </h3>
+                            <ul>
+                                <li v-for="post in footerRecentPosts.items">
+                                    <div class="wrapper-post">
+                                        <div class="wrapper-icon">
+                                            <img :src="post.img">
+                                        </div>
+                                        <div class="infos">
+                                            <span class="text">
+                                                {{ post.text }}
+                                            </span>
+                                            <span class="date">
+                                                {{ post.date }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li id="recent-comments">
+                            <h3>
+                                {{ footerRecentComments.name}}
+                            </h3>
+                            <ul>
+                                <li v-for="comment in footerRecentComments.items" v-html="$options.filters.commentNotification(comment)">
+                                    {{ comment }}
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li id="categories">
+                            <h3>
+                                {{ footerCategories.name}}
+                            </h3>
+                            <ul>
+                                <li v-for="category in footerCategories.items">
+                                    <div class="wrapper-labels">
+                                        <span class="label">
+                                            {{ category }}
+                                        </span> 
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                       
                     </ul>
                 </div>
 
@@ -361,6 +412,32 @@
 
             <div id="footer-bot">
 
+                <div class="container">
+                    <ul>
+
+                        <li>
+                            <img id="logo-footer" src="img/logo-footer.png">
+                        </li>
+                        <li id="copyright">
+                            &copy; Copyright 2020. All Rights Reserved.
+                        </li>
+                        <li>
+                            <a href="#">
+                                FAQ's
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Sitemap
+                            </a>    
+                        </li>
+                        <li>
+                            <a href="#">
+                                Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </footer>
 

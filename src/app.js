@@ -6,217 +6,90 @@ function initVue() {
         el: "#app",
         data: {
 
+
             "navbarLinks" : [
 
                 {
                     "name" : "Home",
                     "url" : "#",
                     "hasDropdown" : true,
-                    "dropdownType" : "small",
+                    "dropdownOpen" : false,
+                    "dropdownType" : "small" ,
                     "dropdown" : [
 
                         {
                             "name" : "Landing Page",
-                            "url" : "#",
-                            "hasDropdown" : false
+                            "url" : "#"
                         },
 
                         {
                             "name" : "Demos",
-                            "url" : "#",
-                            "hasDropdown" : false
+                            "url" : "#"
                         },
 
                         {
                             "name" : "Classic",
-                            "url" : "#",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Classic 1",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-
-                                },
-
-                                {
-                                    "name" : "Classic 2",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-                                {
-
-                                    "name" : "Classic 3",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
+                            "url" : "#"
                         }
                     ]
                 },
 
                 {
-
                     "name" : "Elements",
                     "url" : "#",
                     "hasDropdown" : true,
+                    "dropdownOpen" : false,
                     "dropdownType" : "big",
                     "dropdown" : [
 
                         {
-                            "name" : "Elements1",
-                            "url" : "",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Accordions",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Toggles",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Tabs",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
-                        },
-                        {
-                            "name" : "Elements2",
-                            "url" : "",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Buttons",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Badges",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Lists",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
+                            "name" : "Elemets1",
+                            "url" : "#"
                         },
 
                         {
-                            "name" : "Elements3",
-                            "url" : "",
-                            "hasDropdown" : true,
-                            "dropdown" : [
+                            "name" : "Elemets2",
+                            "url" : "#"
+                        },
 
-                                {
-                                    "name" : "Typography",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Call to actions",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Pricing Tables",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
+                        {
+                            "name" : "Elemets3",
+                            "url" : "#"
                         },
 
                         {
                             "name" : "Elements4",
-                            "url" : "",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Headings",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Dividers",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                },
-
-                                {
-                                    "name" : "Animations",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
+                            "url" : "#"
                         }
                     ]
                 },
 
                 {
-
                     "name" : "Features",
                     "url" : "#",
                     "hasDropdown" : true,
+                    "dropdownOpen" : false,
                     "dropdownType" : "small",
                     "dropdown" : [
 
                         {
-                            "name" : "Headers",
-                            "url" : "#",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Overview",
-                                    "url" : "#",
-                                    "hasDropdown" : true,
-                                    "dropdown" : [
-
-                                        {
-                                            "name" : "Overview1",
-                                            "url" : "#",
-                                            "hasDropdown" : false
-                                        }
-                                    ]
-                                }
-                            ]
+                            "name" : "Features1",
+                            "url" : "#"
                         },
 
                         {
+                            "name" : "Features2",
+                            "url" : "#"
+                        },
 
-                            "name" : "Navigations",
-                            "url" : "#",
-                            "hasDropdown" : true,
-                            "dropdown" : [
-
-                                {
-                                    "name" : "Navigation1",
-                                    "url" : "#",
-                                    "hasDropdown" : false
-                                }
-                            ]
+                        {
+                            "name" : "Features3",
+                            "url" : "#"
                         }
                     ]
-                }
-
+                } 
             ],
+
             // End Navbar
 
             "previews" : [
@@ -489,80 +362,99 @@ function initVue() {
 
             ],
 
-            "footer" : [
-                
-                {
-                    "name" : "About the Blog",
-                    "descr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna semper scelerisque.",
-                },
+            "footerAboutUs" : {
 
-                {
-                    "name" : "Recent Posts",
-                    "posts" : [
+                "name" : "About the blog",
+                "items" : [
 
-                        {
-                            "id" : "footerRecent0",
-                            "img" : "img/our-office-4-square.jpg",
-                            "text" : "Lorem ipsum dolor sit, consectetur adipiscing elit.",
-                            "date" : "12:53 AM Dec 19th"
-                        },
+                    {
+                        "descr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna semper scelerisque."
+                    },
 
-                        {
-                            "id" : "footerRecent1",
-                            "img" : "img/office-5-square.jpg",
-                            "text" : "Lorem ipsum dolor sit, consectetur adipiscing elit.",
-                            "date" : "12:53 AM Dec 19th"
-                        }
-                    ]
-                },
+                    {
+                        "descr" : "Praesent venenatis turpis vitae purus semper, eget sagittis velit venenatis ptent taciti sociosqu ad litora..."
+                    }
+                ]
+            },
 
-                {
-                    "name" : "Recent comments",
-                    "comments" : [
+            "footerRecentPosts" : {
 
-                        {
-                            "id" : "footerComment0",
-                            "author" : "John Doe",
-                            "postTitle" : "Lorem ipsum dolor sit amet",
-                            "date" : "12:53 AM Dec 19th"
-                        },
+                "name" : "Recent Posts",
+                "items" : [
+                    {
+                        "id" : "footerRecent0",
+                        "img" : "img/our-office-4-square.jpg",
+                        "text" : "Lorem ipsum dolor sit, consectetur adipiscing elit.",
+                        "date" : "12:53 AM Dec 19th"
+                    },
 
-                        {
-                            "id" : "footerComment1",
-                            "author" : "John Doe",
-                            "postTitle" : "Lorem ipsum dolor sit amet",
-                            "date" : "12:53 AM Dec 19th"
-                        },
+                    {
+                        "id" : "footerRecent1",
+                        "img" : "img/our-office-5-square.jpg",
+                        "text" : "Lorem ipsum dolor sit, consectetur adipiscing elit.",
+                        "date" : "12:53 AM Dec 19th"
+                    }
+                ]
+            },
 
-                    ]
-                },
+            "footerRecentComments" : {
 
-                {
-                    "name" : "Categories",
-                    "categories" : [
-                        "Gadgets",
-                        "Photography",
-                        "Lifestyle",
-                        "Fashion",
-                        "Recipes",
-                        "Travel",
-                        "Business",
-                        "Architecture",
-                        "Reviews",
-                        "Sports",
-                        "Videos",
-                        "Technology",
-                        "Design"
-                    ]
-                }
-            ],
-                
+                "name" : "Recent comments",
+                "items" : [
+                    {
+                        "id" : "footerComment0",
+                        "author" : "John Doe",
+                        "postTitle" : "Lorem ipsum dolor sit amet",
+                        "url" : "#",
+                        "date" : "12:53 AM Dec 19th"
+                    },
+
+                    {
+                        "id" : "footerComment1",
+                        "author" : "John Doe",
+                        "postTitle" : "Lorem ipsum dolor sit amet",
+                        "url" : "#",
+                        "date" : "12:53 AM Dec 19th"
+                    }
+                ]
+            },
+
+            "footerCategories" : {
+
+                "name" : "Categories",
+                "items" : [
+                    "Gadgets",
+                    "Photography",
+                    "Lifestyle",
+                    "Fashion",
+                    "Recipes",
+                    "Travel",
+                    "Business",
+                    "Architecture",
+                    "Reviews",
+                    "Sports",
+                    "Videos",
+                    "Technology",
+                    "Design"  
+                ]
+            },
+
             "showDescr" : false,
             "activePreview" : "",
-            "activeImageSlider" : 0
+            "activeImageSlider" : 0,
         },
 
         methods: {
+
+            showDropdown: function(link) {
+
+                link.dropdownOpen = true;
+            },
+
+            closeDropdown: function(link) {
+
+                link.dropdownOpen = false;
+            },
 
             showDescription: function(id) {
 
@@ -589,6 +481,34 @@ function initVue() {
                 let boxWidth = document.querySelector(".category").clientWidth;
                 content.scrollLeft += boxWidth + 20;
             }
+        },
+
+        filters: {
+
+            commentNotification: function(post) {
+
+                let chevron = `<i class="fas fa-chevron-right"></i>`;
+                let string = `
+                                <span class="text">
+                                    <span class="icon">
+                                        ${chevron}
+                                    </span> 
+                                    <span class="author">
+                                        ${post.author}
+                                    </span> 
+                                    commented on 
+                                    <a href="${post.url}">
+                                        ${post.postTitle}
+                                    </a>
+                                    <div class="date">
+                                        ${post.date}
+                                    </div>
+                                </span>
+                            `;
+
+                return string;
+            }
+
         },
 
         mounted: function() {

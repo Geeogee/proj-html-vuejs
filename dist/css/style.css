@@ -8,7 +8,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-header nav .container #nav-links, header #header-top ul {
+header #header-top ul {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,24 +98,26 @@ header nav .container #nav-links > li {
 header nav .container #nav-links > li:first-child {
   margin-left: 0;
 }
-header nav .container #nav-links a {
+header nav .container #nav-links {
+  display: flex;
+  list-style-type: none;
   position: relative;
 }
-header nav .container #nav-links > li {
+header nav .container #nav-links .dropdown {
+  list-style-type: none;
+  width: 150px;
+  display: block;
+  z-index: 99;
   background-color: red;
-  border: 1px solid #000;
+  position: absolute;
 }
-header nav .container #nav-links > li > .dropdown {
-  display: none;
+header nav .container #nav-links .big-dropdown {
+  list-style-type: none;
+  width: 800px;
+  display: block;
   position: absolute;
   z-index: 99;
-}
-header nav .container #nav-links > li:hover > .dropdown {
-  display: block;
   background-color: blue;
-}
-header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
-  background-color: green;
 }
 
 #posts-previews {
@@ -483,22 +485,146 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
 }
 
 #footer-top {
+  padding: 50px 0;
   display: flex;
   justify-content: center;
-  height: 400px;
   background-color: #212529;
+}
+#footer-top ul {
+  list-style-type: none;
+}
+#footer-top h3 {
+  color: #FFF;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+#footer-top .text {
+  font-size: 13px;
 }
 #footer-top .container {
   flex-basis: 90%;
 }
-#footer-top .footer-nav {
+#footer-top #footer-nav-links {
   display: flex;
-  flex-basis: 100%;
   justify-content: space-between;
-  list-style-type: none;
+}
+#footer-top #footer-nav-links > li:first-child {
+  flex-grow: 1;
+}
+#footer-top #footer-nav-links > li {
+  flex-basis: 20%;
+}
+#footer-top #footer-nav-links #about-us a {
+  color: #FFF;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+}
+#footer-top #footer-nav-links #about-us .text {
+  color: #777;
+}
+#footer-top #footer-nav-links #about-us > ul > li {
+  margin: 10px 0;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post {
+  display: flex;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post .wrapper-icon {
+  flex-basis: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post .wrapper-icon img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post .infos {
+  flex-basis: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post .infos .text {
+  color: #FFF;
+}
+#footer-top #footer-nav-links #recent-posts .wrapper-post .infos .date {
+  font-size: 11px;
+  color: #777;
+}
+#footer-top #footer-nav-links #recent-posts > ul > li {
+  margin: 10px 0;
+}
+#footer-top #footer-nav-links #recent-comments .text {
+  color: #FFF;
+}
+#footer-top #footer-nav-links #recent-comments .icon {
+  color: #0088cc;
+}
+#footer-top #footer-nav-links #recent-comments a {
+  color: #0088cc;
+  font-weight: 600;
+  text-decoration: none;
+}
+#footer-top #footer-nav-links #recent-comments .author {
+  font-weight: 700;
+}
+#footer-top #footer-nav-links #recent-comments .date {
+  color: #777;
+  font-size: 11px;
+}
+#footer-top #footer-nav-links #recent-comments > ul > li {
+  margin: 10px 0;
+}
+#footer-top #footer-nav-links #categories ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+#footer-top #footer-nav-links #categories ul > * {
+  margin: 2px 3px;
+}
+#footer-top #footer-nav-links #categories .label {
+  font-size: 11px;
+  background-color: #000;
+  padding: 5px;
+  border-radius: 5px;
+  color: #FFF;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 #footer-bot {
-  height: 150px;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
   background-color: #1c2023;
+  font-size: 11px;
+  color: #555;
+}
+#footer-bot .container {
+  flex-basis: 90%;
+}
+#footer-bot ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+#footer-bot ul > li {
+  margin: 0 10px;
+}
+#footer-bot ul #copyright {
+  flex-grow: 1;
+}
+#footer-bot ul a {
+  color: #555;
+  text-decoration: none;
+}
+#footer-bot ul a:hover {
+  text-decoration: underline;
+}
+#footer-bot #logo-footer {
+  width: 80px;
+  opacity: 0.5;
 }
