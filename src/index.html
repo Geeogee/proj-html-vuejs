@@ -211,6 +211,17 @@
                     </div>
                 </div>
             </section>
+            <!-- Carousel -->
+            <section id="carousel">
+
+                <i @click="scrollLeft" class="fas fa-chevron-left scroll"></i>
+                <div class="container">
+                    <div class="category" v-for="category in categories">
+                        {{ category }}
+                    </div>
+                </div>
+                <i @click="scrollRight" class="fas fa-chevron-right scroll"></i>
+            </section>
         </main>
 
         <footer>

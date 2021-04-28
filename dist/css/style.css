@@ -313,3 +313,33 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
   visibility: visible;
   transition-delay: 0s;
 }
+
+#carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0088cc;
+  height: 150px;
+}
+#carousel .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+#carousel .category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  background-color: #212529;
+  min-width: calc(100% / 6 - 20px);
+  height: 60px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+#carousel .scroll {
+  padding: 0 10px;
+}

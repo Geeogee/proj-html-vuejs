@@ -273,3 +273,36 @@
     }
 
 }
+
+// SECTION CAROUSEL
+
+#carousel {
+
+    @include flexbox(center,center);
+    background-color: $primary-blue;
+    height: 150px;
+    
+    .container {
+        @include flexbox(flex-start,center);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    .category {
+
+        @include flexbox(center,center);
+        margin: 0 10px;
+        background-color: #212529;
+        min-width: calc(100% / 6 - 20px);
+        height: 60px;
+        color: #FFF;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .scroll {
+
+        padding: 0 10px;
+    }
+
+}

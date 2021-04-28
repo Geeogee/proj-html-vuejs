@@ -238,7 +238,6 @@ function initVue() {
                 }
 
             ],
-            
             // End Navbar
 
             "previews" : [
@@ -399,8 +398,23 @@ function initVue() {
                 "icon" : "img/avatar.jpg",
                 "descr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pelle, consectetur adipiscing elit. "
             },
+
+            "categories" : [
+                "Gadgets",
+                "Photography",
+                "Lifestyle",
+                "Fashion",
+                "Recipes",
+                "Travel",
+                "Business",
+                "Architecture",
+                "Reviews",
+                "Sports",
+                "Videos",
+                "Technology",
+                "Design"
+            ],
                 
-            
             "showDescr" : false,
             "activePreview" : "",
             "activeImageSlider" : 0
@@ -418,6 +432,20 @@ function initVue() {
 
                 const max = this.slider.length - 1;
                 (this.activeImageSlider == max) ? this.activeImageSlider = 0 : this.activeImageSlider++
+            },
+
+            scrollLeft: function() {
+
+                let content = document.querySelector("#carousel > .container");
+                let boxWidth = document.querySelector(".category").clientWidth;
+                content.scrollLeft -= boxWidth + 19;
+            },
+
+            scrollRight: function() {
+
+                let content = document.querySelector("#carousel > .container");
+                let boxWidth = document.querySelector(".category").clientWidth;
+                content.scrollLeft += boxWidth + 20;
             }
         },
 
