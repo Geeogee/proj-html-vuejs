@@ -11,25 +11,7 @@ function initVue() {
   new Vue({
     el: "#app",
     data: {
-      "navbarLinks": [// lavorare con oggetti
-      // esempio:
-      // {
-      //     "name" : "Home",
-      //     "url" : "#",
-      //     "title" : "alt",
-      //     "dropdown" : [
-      //         {
-      //             "dropdown1" : "testo"
-      //         }
-      //     ]
-      // }
-      // "Elements",
-      // "Features",
-      // "Pages",
-      // "Portfolio",
-      // "Blog",
-      // "Shop"
-      {
+      "navbarLinks": [{
         "name": "Home",
         "url": "#",
         "hasDropdown": true,
@@ -339,6 +321,39 @@ function initVue() {
         "author": "John Doe",
         "categories": ["Travel", "Lifestyle"],
         "comments": 12
+      }],
+      "footer": [{
+        "name": "About the Blog",
+        "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna semper scelerisque."
+      }, {
+        "name": "Recent Posts",
+        "posts": [{
+          "id": "footerRecent0",
+          "img": "img/our-office-4-square.jpg",
+          "text": "Lorem ipsum dolor sit, consectetur adipiscing elit.",
+          "date": "12:53 AM Dec 19th"
+        }, {
+          "id": "footerRecent1",
+          "img": "img/office-5-square.jpg",
+          "text": "Lorem ipsum dolor sit, consectetur adipiscing elit.",
+          "date": "12:53 AM Dec 19th"
+        }]
+      }, {
+        "name": "Recent comments",
+        "comments": [{
+          "id": "footerComment0",
+          "author": "John Doe",
+          "postTitle": "Lorem ipsum dolor sit amet",
+          "date": "12:53 AM Dec 19th"
+        }, {
+          "id": "footerComment1",
+          "author": "John Doe",
+          "postTitle": "Lorem ipsum dolor sit amet",
+          "date": "12:53 AM Dec 19th"
+        }]
+      }, {
+        "name": "Categories",
+        "categories": ["Gadgets", "Photography", "Lifestyle", "Fashion", "Recipes", "Travel", "Business", "Architecture", "Reviews", "Sports", "Videos", "Technology", "Design"]
       }],
       "showDescr": false,
       "activePreview": "",

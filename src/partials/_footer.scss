@@ -1,0 +1,30 @@
+#footer-top {
+
+   
+    display: flex;
+    justify-content: center;
+
+    .container {
+
+        @include container;
+  
+    }
+
+    height: 400px;
+    background-color: #212529;
+
+    .footer-nav {
+
+        display: flex;
+        flex-basis: 100%;
+        justify-content: space-between;
+        list-style-type: none;
+        
+    }
+}
+
+#footer-bot {
+
+    height: 150px;
+    background-color: #1c2023;
+}

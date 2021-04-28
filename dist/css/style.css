@@ -481,3 +481,24 @@ header nav .container #nav-links > li:hover > .dropdown .sub-dropdown {
   margin: 0 2px;
   font-weight: 700;
 }
+
+#footer-top {
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  background-color: #212529;
+}
+#footer-top .container {
+  flex-basis: 90%;
+}
+#footer-top .footer-nav {
+  display: flex;
+  flex-basis: 100%;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+#footer-bot {
+  height: 150px;
+  background-color: #1c2023;
+}
