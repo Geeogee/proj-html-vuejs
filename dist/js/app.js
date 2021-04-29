@@ -34,13 +34,13 @@ function initVue() {
         "dropdownOpen": false,
         "dropdownType": "big",
         "dropdown": [{
-          "name": "Elemets1",
+          "name": "Elements1",
           "url": "#"
         }, {
-          "name": "Elemets2",
+          "name": "Elements2",
           "url": "#"
         }, {
-          "name": "Elemets3",
+          "name": "Elements3",
           "url": "#"
         }, {
           "name": "Elements4",

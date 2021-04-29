@@ -48,14 +48,21 @@ header {
     nav {
 
         @include flexbox(center,center);
+        border-top: 1px solid #f3f3f3;
+        
 
         .container {
 
             @include container;
+            position: relative;
+            padding: 20px 0;
 
             #nav-links > li {
 
                 margin: 0 20px;
+                color: #212529;
+                text-transform: uppercase;
+                font-weight: 700;
 
                 &:first-child {
                     
@@ -67,26 +74,45 @@ header {
 
                  display: flex;
                  list-style-type: none;
-                 position: relative;
+                 
                 
                  .dropdown {
 
+                    color: #777;
+                    font-weight: 400;
+                    text-transform: initial;
+                    font-size: $base-font - 1px;
                     list-style-type: none;
                     width: 150px;
                     display: block;
                     z-index: 99;
-                    background-color: red;
+                    background-color: #FFF;
                     position: absolute;
+                    top: 100%;
+
+                    & > li {
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        border-bottom: 1px solid #f3f3f3;
+                        padding: 10px;
+                    
+                    }
                  }
 
                  .big-dropdown {
 
+                    display: flex;
+                    justify-content: space-between;
                     list-style-type: none;
-                    width: 800px;
-                    display: block;
                     position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    min-height: 500px;
                     z-index: 99;
-                    background-color: blue;  
+                    background-color: #FFF;  
+                    padding: 10px;
                  }
 
             }
