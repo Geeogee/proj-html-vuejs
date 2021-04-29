@@ -163,7 +163,7 @@
                             </h3>
 
                             <div id="slider">
-                                <img v-for="(post, index) in slider" :src="(index == activeImageSlider) ? post.img : ''">
+                                <img v-for="(post, index) in slider" :key="index" :src="(index == activeImageSlider) ? post.img : ''">                                 
                                 <div class="layover"></div>
                                 <div class="thumb-text">
                                     <div class="label">
@@ -218,13 +218,13 @@
 
                             <div :class="(article.imgType == 'gallery') ? 'gallery' : ''" class="wrapper-image">
                                 <!-- Lightbox -->
-                                <div id="lightbox" v-if="article.imgType == 'gallery' && showLightbox">
-                                    <i class="fas fa-chevron-left action" @click="prevLightbox"></i>
+                                <div @click="closeLightbox" id="lightbox" v-if="article.imgType == 'gallery' && showLightbox">
+                                    <i class="fas fa-chevron-left action" @click.stop="prevLightbox"></i>
                                     <div class="wrapper-image">
-                                        <img :src="activeImage" @click="nextLightbox"> 
-                                        <i class="fas fa-times close" @click="closeLightbox"></i>  
+                                        <img :src="activeImage" @click.stop="nextLightbox"> 
+                                        <i class="fas fa-times close" @click.stop="closeLightbox"></i>  
                                     </div>
-                                    <i class="fas fa-chevron-right action" @click="nextLightbox"></i>
+                                    <i class="fas fa-chevron-right action" @click.stop="nextLightbox"></i>
                                 </div> <!-- Lightbox end -->
                                 <img v-if="article.imgType == 'default'" :src="article.img">
                                 <div v-else v-for="(image,index) in article.img" class="wrapper-image-gallery" @click="openLightbox(image,index,article.img)">

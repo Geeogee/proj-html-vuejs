@@ -570,6 +570,7 @@ function initVue() {
         mounted: function() {
 
             setInterval(this.nextImage, 2000);
+            
         }
     })
 }
