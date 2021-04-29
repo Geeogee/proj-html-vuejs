@@ -367,6 +367,14 @@
                         font-size: $large-font;
                     }
 
+                    .counter {
+
+                        position: absolute;
+                        bottom: -25px;
+                        right: 0;
+                        color: $secondary-white;
+                    }
+
                     .wrapper-image {
 
                         height: 600px;
@@ -388,8 +396,6 @@
                     height: 50%;
                     position: relative;
                     overflow: hidden; /* clips the image when using transform zoom */
-
-                   
 
                     img {
 

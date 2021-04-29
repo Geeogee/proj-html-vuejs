@@ -448,6 +448,12 @@ header nav .container #nav-links .big-dropdown {
   color: #FFF;
   font-size: 20px;
 }
+#all-articles .container .wrapper-article .wrapper-image #lightbox .counter {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  color: #FFF;
+}
 #all-articles .container .wrapper-article .wrapper-image #lightbox .wrapper-image {
   height: 600px;
   width: 600px;

@@ -222,7 +222,10 @@
                                     <i class="fas fa-chevron-left action" @click.stop="prevLightbox"></i>
                                     <div class="wrapper-image">
                                         <img :src="activeImage" @click.stop="nextLightbox"> 
-                                        <i class="fas fa-times close" @click.stop="closeLightbox"></i>  
+                                        <i class="fas fa-times close" @click.stop="closeLightbox"></i>
+                                        <span class="counter">
+                                            {{ activeIndex + 1 }} of {{ activeGallery.length }}
+                                        </span> 
                                     </div>
                                     <i class="fas fa-chevron-right action" @click.stop="nextLightbox"></i>
                                 </div> <!-- Lightbox end -->
