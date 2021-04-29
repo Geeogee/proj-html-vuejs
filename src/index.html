@@ -77,8 +77,8 @@
                <div class="container">
                     <!-- Nav menù using VueJS -->
                     <ul id="nav-links">
-                        <li v-for="link in navbarLinks">
-                            <a class="hasDropdown" href="#" @mouseenter="showDropdown(link)" @mouseleave="closeDropdown(link)">
+                        <li v-for="link in navbarLinks" @mouseleave="closeDropdown(link)">
+                            <a class="hasDropdown" href="#" @mouseenter="showDropdown(link)">
                                 {{ link.name }}
                             </a> 
                             <ul :class="(link.dropdownType == 'small') ? 'dropdown' : 'big-dropdown'" v-if="link.dropdownOpen">
