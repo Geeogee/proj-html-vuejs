@@ -1,19 +1,45 @@
 // Colors
 
+// Blue
 $primary-blue: #0088cc;
+$blue-charcoal: #212529;
+
+// White
 $secondary-white: #FFF;
+$white-smoke: #f7f7f7;
+
+// Gray
+$light-gray: #f3f3f3;
+$light-mouse-gray: #888;
+$mouse-gray: #777;
+$davys-gray: #555;
+$dark-gray: #444444;
+
+// Black
+$black-pearl: #1c2023;
+$black: #000;
+
 
 // Mixins
-
 @mixin container {
 
+    max-width: 1400px;
     flex-basis: 90%;
 }
 
-@mixin flexbox($jusitfy,$align) {
+@mixin flexRow($justify,$align) {
 
     display: flex;
-    justify-content: $jusitfy;
+    flex-direction: row;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin flexCol($justify,$align) {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: $justify;
     align-items: $align;
 }
 

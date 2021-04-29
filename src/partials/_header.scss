@@ -2,12 +2,12 @@ header {
 
     .container {
         @include container;
-        @include flexbox(space-between,center)
+        @include flexRow(space-between,center);
     }
 
     #header-top {
         
-        @include flexbox(center,center);
+        @include flexRow(center,center);
         height: 50px;
         background-color: $primary-blue;
 
@@ -28,16 +28,13 @@ header {
                 margin: 0 10px;
                 text-transform: uppercase;
             }
-
-            
         }
-
     }
 
     #header-mid {
 
         height: 100px;
-        @include flexbox(center,center);
+        @include flexRow(center,center);
         
         #logo {
 
@@ -47,10 +44,9 @@ header {
 
     nav {
 
-        @include flexbox(center,center);
-        border-top: 1px solid #f3f3f3;
+        @include flexRow(center,center);
+        border-top: 1px solid $light-gray;
         
-
         .container {
 
             @include container;
@@ -60,7 +56,7 @@ header {
             #nav-links > li {
 
                 margin: 0 20px;
-                color: #212529;
+                color: $blue-charcoal;
                 text-transform: uppercase;
                 font-weight: 700;
 
@@ -72,13 +68,12 @@ header {
 
             #nav-links { 
 
-                 display: flex;
+                 @include flexRow(null,null);
                  list-style-type: none;
                  
-                
                  .dropdown {
 
-                    color: #777;
+                    color: $mouse-gray;
                     font-weight: 400;
                     text-transform: initial;
                     font-size: $base-font - 1px;
@@ -86,24 +81,21 @@ header {
                     width: 150px;
                     display: block;
                     z-index: 99;
-                    background-color: #FFF;
+                    background-color: $secondary-white;
                     position: absolute;
                     top: 100%;
 
                     & > li {
                         height: 30px;
-                        display: flex;
-                        align-items: center;
-                        border-bottom: 1px solid #f3f3f3;
+                        @include flexRow(null,center);
+                        border-bottom: 1px solid $light-gray;
                         padding: 10px;
-                    
                     }
                  }
 
                  .big-dropdown {
 
-                    display: flex;
-                    justify-content: space-between;
+                    @include flexRow(space-between,null);
                     list-style-type: none;
                     position: absolute;
                     top: 100%;
@@ -111,10 +103,9 @@ header {
                     width: 100%;
                     min-height: 500px;
                     z-index: 99;
-                    background-color: #FFF;  
+                    background-color: $secondary-white;  
                     padding: 10px;
                  }
-
             }
         }
     }

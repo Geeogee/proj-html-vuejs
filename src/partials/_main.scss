@@ -2,13 +2,13 @@
 
 #posts-previews {
 
-    @include flexbox(center,center);
-    background-color: #f7f7f7;
+    @include flexRow(center,center);
+    background-color: $white-smoke;
 
     .container {
 
         @include container;
-        @include flexbox(space-between,center);
+        @include flexRow(space-between,center);
         flex-wrap: wrap;
     }
 
@@ -86,17 +86,16 @@
 #posts-ranks {
 
     padding: 50px 0;
-    @include flexbox(center,center);
+    @include flexRow(center,center);
 
     .container {
         @include container;
-        @include flexbox(space-between, initial);
+        @include flexRow(space-between, null);
     }
 
     #featured {
 
-        @include flexbox(flex-end,center);
-        flex-direction: column;
+        @include flexCol(flex-end,center);
     }
 
     #featured-posts {
@@ -110,14 +109,14 @@
 
         h3 {
 
-            color: $title-text;
+            color: $dark-gray;
             font-size: $base-font;
             text-transform: uppercase;
         }
 
         .wrapper-rank-post {
 
-            @include flexbox(flex-start,center);
+            @include flexRow(flex-start,center);
             padding: 20px 0;
             border-bottom: 1px dotted #e2e2e2; 
 
@@ -135,14 +134,13 @@
     
             .wrapper-text {
     
-                @include flexbox(center,flex-start);
-                flex-direction: column;
+                @include flexCol(center,flex-start);
                 padding-left: 10px;
 
                 .title {
 
                     a {
-                        color: #121416;
+                        color: $black-pearl;
                         text-decoration: none;
                         text-transform: capitalize;
                         font-size: $base-font;
@@ -156,14 +154,14 @@
                 .date {
 
                     font-size: $small-font;
-                    color: #888;
+                    color: $light-mouse-gray;
                 }
             }
         }
 
         .wrapper-rank-author {
 
-            @include flexbox(flex-start,center);
+            @include flexRow(flex-start,center);
             padding: 20px 0;
 
             .wrapper-image {
@@ -181,14 +179,13 @@
 
             .wrapper-text {
                 
-                @include flexbox(center,flex-start);
+                @include flexCol(center,flex-start);
                 flex-basis: calc(100% - 112px);
-                flex-direction: column;
                 padding-left: 10px;
 
                 .name {
 
-                    color: #121416;
+                    color: $black-pearl;
                     text-decoration: none;
                     text-transform: capitalize;
                     font-size: $large-font;
@@ -197,7 +194,7 @@
                 .descr {
 
                     font-size: $base-font;
-                    color: #888;
+                    color: $light-mouse-gray;
                 }
             }
         }
@@ -279,24 +276,25 @@
 
 #carousel {
 
-    @include flexbox(center,center);
+    @include flexRow(center,center);
     background-color: $primary-blue;
     height: 150px;
     
     .container {
-        @include flexbox(flex-start,center);
+        
+        @include flexRow(flex-start,center);
         overflow-x: hidden;
         scroll-behavior: smooth;
     }
 
     .category {
 
-        @include flexbox(center,center);
+        @include flexRow(center,center);
         margin: 0 10px;
-        background-color: #212529;
+        background-color: $blue-charcoal;
         min-width: calc(100% / 6 - 20px);
         height: 60px;
-        color: #FFF;
+        color: $secondary-white;
         text-transform: uppercase;
         font-weight: 600;
     }
@@ -312,12 +310,12 @@
 
 #all-articles {
 
-    @include flexbox(center,center);
+    @include flexRow(center,center);
 
     .container {
 
         @include container;
-        @include flexbox(center,flex-start);
+        @include flexRow(center,flex-start);
         
         .container-articles {
 
@@ -325,13 +323,12 @@
         }
         .wrapper-article {
 
-            display: flex;
-            flex-direction: column;
+            @include flexCol(null,null);
             padding: 50px 0;
 
             .gallery {
 
-                display: flex;
+                @include flexRow(null,null);
                 flex-wrap: wrap;
             }
 
@@ -342,9 +339,7 @@
 
                 #lightbox {
 
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    @include flexRow(space-between,center);
                     background-color: rgba(0,0,0,.8);
                     width: 100%;
                     height: 100vh;
@@ -358,17 +353,17 @@
                         position: absolute;
                         top: -25px;
                         right: 0;
-                        color: #FFF;
+                        color: $secondary-white;
                         font-size: $large-font;
                     }
 
                     .action {
 
-                        background-color: #2a2c2f;
+                        background-color: $black-pearl;
                         padding: 30px 10px;
                         border-radius: 4px;
                         display: inline-block;
-                        color: #FFF;
+                        color: $secondary-white;
                         font-size: $large-font;
                     }
 
@@ -408,14 +403,12 @@
                     .layover {
 
                         @extend %layover;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        @include flexRow(center,center);
                         visibility: hidden;
 
                         .plus {
 
-                            color: #FFF;
+                            color: $secondary-white;
                             font-size: 30px;
                             transition: all .2s;
 
@@ -446,19 +439,18 @@
 
             .wrapper-infos {
 
-                display: flex;
+                @include flexRow(null,null);
 
                 .date {
 
                     flex-basis: 10%;
-                    display: flex;
-                    flex-direction: column;
+                    @include flexCol(null,null);
 
                     .day {
 
-                        @include flexbox(center,center);
-                        background-color: #f7f7f7;
-                        color: #212529;
+                        @include flexRow(center,center);
+                        background-color: $white-smoke;
+                        color: $blue-charcoal;
                         font-weight: 700;
                         width: 50px;
                         height: 70px;
@@ -466,10 +458,10 @@
 
                     .month {
 
-                        @include flexbox(center,center);
+                        @include flexRow(center,center);
                         font-size: $small-font;
-                        background-color: #212529;
-                        color: #f7f7f7;
+                        background-color: $blue-charcoal;
+                        color: $white-smoke;
                         width: 50px;
                         text-transform: uppercase;
                     }
@@ -480,23 +472,23 @@
                     border-bottom: 1px dotted #e2e2e2;
                     h2 {
 
-                        color: #212529;
+                        color: $blue-charcoal;
                     }
 
 
                     .descr {
 
-                        color: #777777;
+                        color: $mouse-gray;
                     }
 
                     .author {
 
                         ul {
 
-                            display: flex;
+                            @include flexRow(null,null);
                             list-style-type: none;
                             padding: 10px 0;
-                            color: #777;
+                            color: $mouse-gray;
                             font-size: $small-font + 2px;
 
                             li {
@@ -522,8 +514,7 @@
 
         aside {
 
-            display: flex;
-            flex-direction: column;
+            @include flexCol(null,null);
             margin: 50px 0;
             padding: 20px;
             flex-basis: 30%;
@@ -542,15 +533,14 @@
 
             h3 {
 
-                color: #212529;
+                color: $blue-charcoal;
                 font-size: $base-font;
                 text-transform: uppercase;
             }
 
             .post {
 
-                display: flex;
-
+                @include flexRow(null,null);
 
                 .social-icon {
 
@@ -560,9 +550,8 @@
 
                 .message {
 
-                    display: flex;
-                    flex-direction: column;
-                    color: #777777;
+                    @include flexCol(null,null);
+                    color: $mouse-gray;
                     font-size: $base-font;
 
                     a {
@@ -578,12 +567,12 @@
 
             .wrapper-labels {
 
-                display: flex;
+                @include flexRow(null,null);
 
                 .label {
 
-                    background-color: #212529;
-                    color: #FFF;
+                    background-color: $blue-charcoal;
+                    color: $secondary-white;
                     font-size: $small-font;
                     text-transform: uppercase;
                     border-radius: 20px;

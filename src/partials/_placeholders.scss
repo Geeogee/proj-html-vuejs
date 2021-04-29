@@ -1,9 +1,8 @@
 %nav-links {
 
-    @include flexbox(center,center);
+    @include flexRow(center,center);
     list-style: none;
 }
-
 
 // Label
 
