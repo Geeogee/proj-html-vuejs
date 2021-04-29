@@ -78,10 +78,10 @@
                     <!-- Nav menù using VueJS -->
                     <ul id="nav-links">
                         <li v-for="link in navbarLinks">
-                            <a class="hasDropdown" href="#" @mouseenter="showDropdown(link)">
+                            <a class="hasDropdown" href="#" @mouseenter="showDropdown(link)" @mouseleave="closeDropdown(link)">
                                 {{ link.name }}
                             </a> 
-                            <ul :class="(link.dropdownType == 'small') ? 'dropdown' : 'big-dropdown'" v-if="link.dropdownOpen" @mouseleave="closeDropdown(link)">
+                            <ul :class="(link.dropdownType == 'small') ? 'dropdown' : 'big-dropdown'" v-if="link.dropdownOpen">
                                 <li v-for="dropdown in link.dropdown">
                                     {{ dropdown.name }}
                                 </li>
