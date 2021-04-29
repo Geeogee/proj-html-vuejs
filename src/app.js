@@ -1,3 +1,4 @@
+const { tsMethodSignature } = require("@babel/types");
 
 function initVue() {
 
@@ -88,9 +89,9 @@ function initVue() {
                         }
                     ]
                 } 
-            ],
+            ],// End Navbar
 
-            // End Navbar
+            
 
             "previews" : [
                 {   
@@ -271,6 +272,7 @@ function initVue() {
 
                 {
                     "id" : "allpost0",
+                    "imgType" : "default",
                     "img" : "img/blog-54.jpg",
                     "title" : "How to Make Friends as a Grown-Up",
                     "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
@@ -290,6 +292,7 @@ function initVue() {
         
                 {
                     "id" : "allpost1",
+                    "imgType" : "default",
                     "img" : "img/blog-55 (1).jpg",
                     "title" : "Simple Ways to Have a Pretty Face",
                     "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
@@ -308,6 +311,7 @@ function initVue() {
 
                 {
                     "id" : "allpost2",
+                    "imgType" : "default",
                     "img" : "img/blog-56 (1).jpg",
                     "title" : "Ranking the greatest players in basketball",
                     "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
@@ -326,6 +330,7 @@ function initVue() {
 
                 {
                     "id" : "allpost3",
+                    "imgType" : "default",
                     "img" : "img/blog-58 (1).jpg",
                     "title" : "Top Camper Trailer Towing Tips",
                     "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
@@ -344,7 +349,17 @@ function initVue() {
 
                 {
                     "id" : "allpost4",
-                    "img" : "",
+                    "imgType" : "gallery",
+                    "img" : [
+
+                       "img/blog-13.jpg",
+                       "img/blog-16.jpg",
+                       "img/blog-20.jpg",
+                       "img/blog-23.jpg",
+                       "img/blog-29.jpg",
+                       "img/blog-40.jpg" 
+
+                    ],
                     "title" : "10 Best Travel Tips After 5 Years Traveling The World",
                     "descr" : "Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nunc dui, tristique in semper vel, congue sed ligula. Nam dolor ligula, faucibus id sodales in, auctor fringilla libero. Pellentesque pellentesque tempor tellus eget hendrerit. Morbi id aliquam ligula. Aliquam id dui sem. Proin rhoncus consequat nisl, eu ornare mauris tincidunt vitae. ",
                     "date" : {
@@ -442,7 +457,11 @@ function initVue() {
             "showDescr" : false,
             "activePreview" : "",
             "activeImageSlider" : 0,
-        },
+            "showLightbox" : false,
+            "activeImage" : "",
+            "activeIndex" : "",
+            "activeGallery" : ""
+        }, 
 
         methods: {
 
@@ -460,6 +479,43 @@ function initVue() {
 
                 this.activePreview = id;
                 this.showDescr = true;
+            },
+
+            openLightbox: function(image,index,gallery) {
+
+                this.showLightbox = true;
+                this.activeGallery = gallery;
+                this.activeIndex = index;
+                this.activeImage = image;  
+            },
+
+            closeLightbox: function() {
+
+                this.showLightbox = false;
+            },
+
+            prevLightbox: function() {
+
+                const max = this.activeGallery.length - 1;
+                this.activeIndex--;
+
+                if (this.activeIndex < 0) {
+                    this.activeIndex = max;
+                }
+                
+                this.activeImage = this.activeGallery[this.activeIndex];
+            },
+
+            nextLightbox: function() {
+
+                const max = this.activeGallery.length - 1;
+                this.activeIndex++;
+
+                if (this.activeIndex > max) {
+                    this.activeIndex = 0;
+                }
+
+                this.activeImage = this.activeGallery[this.activeIndex];
             },
 
             nextImage: function() {

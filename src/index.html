@@ -216,8 +216,24 @@
                     <div class="container-articles">
                         <article v-for="article in allPosts" class="wrapper-article">
 
-                            <div class="wrapper-image">
-                                <img :src="article.img">
+                            <div :class="(article.imgType == 'gallery') ? 'gallery' : ''" class="wrapper-image">
+                                <!-- Lightbox -->
+                                <div id="lightbox" v-if="article.imgType == 'gallery' && showLightbox">
+                                    <i class="fas fa-chevron-left action" @click="prevLightbox"></i>
+                                    <div class="wrapper-image">
+                                        <img :src="activeImage" @click="nextLightbox"> 
+                                        <i class="fas fa-times close" @click="closeLightbox"></i>  
+                                    </div>
+                                    <i class="fas fa-chevron-right action" @click="nextLightbox"></i>
+                                </div> <!-- Lightbox end -->
+                                <img v-if="article.imgType == 'default'" :src="article.img">
+                                <div v-else v-for="(image,index) in article.img" class="wrapper-image-gallery" @click="openLightbox(image,index,article.img)">
+                                    <img :src="image">
+                                    <div class="layover">
+                                        <i class="fas fa-plus-circle plus"></i>
+                                    </div>
+                                </div>
+                                
                             </div>
 
                             <div class="wrapper-infos">
@@ -225,7 +241,7 @@
                                     <span class="day">{{ article.date.day }}</span>
                                     <span class="month">{{ article.date.month }}</span>
                                 </div>
-
+                            
                                 <div class="wrapper-text">
                                     <h2>
                                         {{ article.title }}
