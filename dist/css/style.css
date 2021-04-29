@@ -79,6 +79,24 @@ header #header-top ul > li {
   margin: 0 10px;
   text-transform: uppercase;
 }
+header #header-top ul a {
+  color: #FFF;
+}
+header #header-top #social-links a {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 100%;
+  transition: all 0.2s;
+}
+header #header-top #social-links #nav-fb:hover {
+  background-color: #3b5a9a;
+}
+header #header-top #social-links #nav-twitter:hover {
+  background-color: #1aa9e1;
+}
+header #header-top #social-links #nav-linkedin:hover {
+  background-color: #0073b2;
+}
 header #header-mid {
   height: 100px;
   display: flex;
@@ -100,21 +118,25 @@ header nav .container {
   max-width: 1400px;
   flex-basis: 90%;
   position: relative;
-  padding: 20px 0;
-}
-header nav .container #nav-links > li {
-  margin: 0 20px;
-  color: #212529;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-header nav .container #nav-links > li:first-child {
-  margin-left: 0;
 }
 header nav .container #nav-links {
   display: flex;
   flex-direction: row;
   list-style-type: none;
+}
+header nav .container #nav-links .hasDropdown {
+  color: #212529;
+  display: inline-block;
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+}
+header nav .container #nav-links .hasDropdown:first-child {
+  margin-left: 0;
+}
+header nav .container #nav-links .hasDropdown:hover {
+  color: #0088cc;
 }
 header nav .container #nav-links .dropdown {
   color: #777;
@@ -143,13 +165,16 @@ header nav .container #nav-links .big-dropdown {
   justify-content: space-between;
   list-style-type: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% - 20px);
   left: 0;
   width: 100%;
   min-height: 500px;
   z-index: 99;
   background-color: #FFF;
   padding: 10px;
+}
+header nav .container #nav-links .big-dropdown > li:first-child {
+  padding-top: 20px;
 }
 
 #posts-previews {
@@ -384,6 +409,10 @@ header nav .container #nav-links .big-dropdown {
   color: #FFF;
   text-transform: uppercase;
   font-weight: 600;
+  transition: all 0.2s;
+}
+#carousel .category:hover {
+  background-color: #32383e;
 }
 #carousel .scroll {
   padding: 0 10px;

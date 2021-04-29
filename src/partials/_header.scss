@@ -28,6 +28,37 @@ header {
                 margin: 0 10px;
                 text-transform: uppercase;
             }
+
+            a {
+
+                color: $secondary-white;
+            }
+        }
+
+        #social-links {
+
+            a {
+
+                display: inline-block;
+                padding: 10px 15px;
+                border-radius: 100%;
+                transition: all .2s;
+            }
+
+            #nav-fb:hover {
+
+                background-color: #3b5a9a;
+            }
+
+            #nav-twitter:hover {
+
+                background-color: #1aa9e1;
+            }
+
+            #nav-linkedin:hover {
+
+                background-color: #0073b2;
+            }
         }
     }
 
@@ -51,26 +82,31 @@ header {
 
             @include container;
             position: relative;
-            padding: 20px 0;
-
-            #nav-links > li {
-
-                margin: 0 20px;
-                color: $blue-charcoal;
-                text-transform: uppercase;
-                font-weight: 700;
-
-                &:first-child {
-                    
-                    margin-left: 0;
-                }
-            }
 
             #nav-links { 
 
                  @include flexRow(null,null);
                  list-style-type: none;
                  
+                 .hasDropdown {
+                    color: $blue-charcoal;
+                    display: inline-block;
+                    padding: 20px;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    text-decoration: none;
+
+                    &:first-child {
+                    
+                        margin-left: 0;
+                    }
+    
+                    &:hover {
+
+                        color: $primary-blue;
+                    }
+                 }
+
                  .dropdown {
 
                     color: $mouse-gray;
@@ -91,6 +127,7 @@ header {
                         border-bottom: 1px solid $light-gray;
                         padding: 10px;
                     }
+
                  }
 
                  .big-dropdown {
@@ -98,14 +135,21 @@ header {
                     @include flexRow(space-between,null);
                     list-style-type: none;
                     position: absolute;
-                    top: 100%;
+                    top: calc(100% - 20px);
                     left: 0;
                     width: 100%;
                     min-height: 500px;
                     z-index: 99;
                     background-color: $secondary-white;  
                     padding: 10px;
+
+                    & > li:first-child {
+
+                        padding-top: 20px;
+                     }
                  }
+
+                 
             }
         }
     }

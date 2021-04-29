@@ -297,6 +297,12 @@
         color: $secondary-white;
         text-transform: uppercase;
         font-weight: 600;
+        transition: all .2s;
+
+        &:hover {
+
+            background-color: #32383e;
+        }
     }
 
     .scroll {
