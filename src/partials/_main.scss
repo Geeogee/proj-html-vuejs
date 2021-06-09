@@ -205,66 +205,93 @@
             width: 450px;
             height: 187.5px;
             position: relative;
+            overflow: hidden;
 
-            img {
-
-                max-width: 100%;
-                height: auto;
-                position: relative;
+            &:hover .layover {
+        
+                background-color: rgba(33,37,41,.8);
             }
 
             .layover {
 
                 @extend %layover;
+                transition: all .4s;
             }
 
-            .thumb-text {
+            .wrapper-image-slider {
 
-                @include absolute-text(50%,20px,80%);
-                max-height: 50%;
+                width: 450px;
+                height: 187.5px;
+                position: relative;
                 overflow: hidden;
-                transition: all .3s;
-                transition-delay: .3s;
-    
-                .label {
-    
-                    @extend %label;
-                } 
-    
-                h2 {
-    
-                    @extend %layover-h2;
-                   
+
+                .slide-image {
+
+                    width: 100%;
+                    position: absolute; /* important */
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right:0;
                 }
-    
-                .descr {
-    
-                    @extend %layover-descr;
-                    max-height: 0;
-                    visibility: hidden;
-                    transition: all ease .3s;
+
+                .thumb-text {
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 20px;
+                    width: 80%;
+                    height: 50%;
+                    overflow: hidden;
+                    z-index: 2;
+                    transition: all .2s;
                     transition-delay: .3s;
+        
+                    .label {
+        
+                        @extend %label;
+                    } 
+        
+                    h2 {
+        
+                        @extend %layover-h2;
+                        min-height: 70px;
+                       
+                    }
+        
+                    .descr {
+        
+                        @extend %layover-descr;
+                    }
+        
                 }
-    
             }
 
             &:hover .thumb-text {
-
-                top: 20px;
-                max-height: 90%;
+    
+                height: 90%;
                 transition-delay: 0s;
-            }
-    
-            &:hover .layover {
-    
-                background-color: rgba(33,37,41,.8);
-            }
+            } 
     
             &:hover .descr {
 
                 max-height: 100%;
                 visibility: visible;
-                transition-delay: 0s;
+            }
+
+            .left-slide-enter-active, .left-slide-leave-active {
+
+                transition: 1s;
+            }
+
+            .left-slide-enter {
+
+                transform: translate(100%, 0);
+            }
+
+            .left-slide-leave-to {
+
+                transform: translate(-100%, 0);
             }
         }
 

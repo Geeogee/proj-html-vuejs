@@ -245,6 +245,13 @@ function initVue() {
                 }
             ],
 
+            "sliderTest" : [
+
+                "img/blog-65 (1).jpg",
+                "img/blog-66.jpg",
+                "img/blog-67 (1).jpg"
+            ],
+
             "featAuthor" : {
 
                 "name" : "John Doe",
@@ -457,6 +464,7 @@ function initVue() {
             "showDescr" : false,
             "activePreview" : "",
             "activeImageSlider" : 0,
+            "slideActive" : "",
             "showLightbox" : false,
             "activeImage" : "",
             "activeIndex" : "",
@@ -524,6 +532,11 @@ function initVue() {
                 (this.activeImageSlider == max) ? this.activeImageSlider = 0 : this.activeImageSlider++
             },
 
+            pauseSlider: function() {
+
+                clearInterval(this.slideActive);
+            },
+
             scrollLeft: function() {
 
                 let content = document.querySelector("#carousel > .container");
@@ -539,6 +552,8 @@ function initVue() {
             }
         },
 
+        // Non usare filter per stampare HTML
+        // Solo testo semplice
         filters: {
 
             commentNotification: function(post) {
@@ -569,8 +584,7 @@ function initVue() {
 
         mounted: function() {
 
-            setInterval(this.nextImage, 2000);
-            
+            this.slideActive = setInterval(this.nextImage, 2000);
         }
     })
 }

@@ -68,16 +68,23 @@ function isIdentifierChar(code) {
 function isIdentifierName(name) {
   let isFirst = true;
 
-  for (let _i = 0, _Array$from = Array.from(name); _i < _Array$from.length; _i++) {
-    const char = _Array$from[_i];
-    const cp = char.codePointAt(0);
+  for (let i = 0; i < name.length; i++) {
+    let cp = name.charCodeAt(i);
+
+    if ((cp & 0xfc00) === 0xd800 && i + 1 < name.length) {
+      const trail = name.charCodeAt(++i);
+
+      if ((trail & 0xfc00) === 0xdc00) {
+        cp = 0x10000 + ((cp & 0x3ff) << 10) + (trail & 0x3ff);
+      }
+    }
 
     if (isFirst) {
+      isFirst = false;
+
       if (!isIdentifierStart(cp)) {
         return false;
       }
-
-      isFirst = false;
     } else if (!isIdentifierChar(cp)) {
       return false;
     }
@@ -217,9 +224,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = assertNode;
 
-var _isNode = _interopRequireDefault(__webpack_require__(/*! ../validators/isNode */ "./node_modules/@babel/types/lib/validators/isNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _isNode = __webpack_require__(/*! ../validators/isNode */ "./node_modules/@babel/types/lib/validators/isNode.js");
 
 function assertNode(node) {
   if (!(0, _isNode.default)(node)) {
@@ -388,6 +393,8 @@ exports.assertEnumBooleanMember = assertEnumBooleanMember;
 exports.assertEnumNumberMember = assertEnumNumberMember;
 exports.assertEnumStringMember = assertEnumStringMember;
 exports.assertEnumDefaultedMember = assertEnumDefaultedMember;
+exports.assertIndexedAccessType = assertIndexedAccessType;
+exports.assertOptionalIndexedAccessType = assertOptionalIndexedAccessType;
 exports.assertJSXAttribute = assertJSXAttribute;
 exports.assertJSXClosingElement = assertJSXClosingElement;
 exports.assertJSXElement = assertJSXElement;
@@ -537,9 +544,7 @@ exports.assertRegexLiteral = assertRegexLiteral;
 exports.assertRestProperty = assertRestProperty;
 exports.assertSpreadProperty = assertSpreadProperty;
 
-var _is = _interopRequireDefault(__webpack_require__(/*! ../../validators/is */ "./node_modules/@babel/types/lib/validators/is.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _is = __webpack_require__(/*! ../../validators/is */ "./node_modules/@babel/types/lib/validators/is.js");
 
 function assert(type, node, opts) {
   if (!(0, _is.default)(type, node, opts)) {
@@ -1121,6 +1126,14 @@ function assertEnumStringMember(node, opts) {
 
 function assertEnumDefaultedMember(node, opts) {
   assert("EnumDefaultedMember", node, opts);
+}
+
+function assertIndexedAccessType(node, opts) {
+  assert("IndexedAccessType", node, opts);
+}
+
+function assertOptionalIndexedAccessType(node, opts) {
+  assert("OptionalIndexedAccessType", node, opts);
 }
 
 function assertJSXAttribute(node, opts) {
@@ -1747,9 +1760,7 @@ exports.default = builder;
 
 var _definitions = __webpack_require__(/*! ../definitions */ "./node_modules/@babel/types/lib/definitions/index.js");
 
-var _validate = _interopRequireDefault(__webpack_require__(/*! ../validators/validate */ "./node_modules/@babel/types/lib/validators/validate.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _validate = __webpack_require__(/*! ../validators/validate */ "./node_modules/@babel/types/lib/validators/validate.js");
 
 function builder(type, ...args) {
   const keys = _definitions.BUILDER_KEYS[type];
@@ -1801,9 +1812,7 @@ exports.default = createFlowUnionType;
 
 var _generated = __webpack_require__(/*! ../generated */ "./node_modules/@babel/types/lib/builders/generated/index.js");
 
-var _removeTypeDuplicates = _interopRequireDefault(__webpack_require__(/*! ../../modifications/flow/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/flow/removeTypeDuplicates.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _removeTypeDuplicates = __webpack_require__(/*! ../../modifications/flow/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/flow/removeTypeDuplicates.js");
 
 function createFlowUnionType(types) {
   const flattened = (0, _removeTypeDuplicates.default)(types);
@@ -2013,6 +2022,8 @@ exports.enumBooleanMember = enumBooleanMember;
 exports.enumNumberMember = enumNumberMember;
 exports.enumStringMember = enumStringMember;
 exports.enumDefaultedMember = enumDefaultedMember;
+exports.indexedAccessType = indexedAccessType;
+exports.optionalIndexedAccessType = optionalIndexedAccessType;
 exports.jSXAttribute = exports.jsxAttribute = jsxAttribute;
 exports.jSXClosingElement = exports.jsxClosingElement = jsxClosingElement;
 exports.jSXElement = exports.jsxElement = jsxElement;
@@ -2117,9 +2128,7 @@ exports.regexLiteral = RegexLiteral;
 exports.restProperty = RestProperty;
 exports.spreadProperty = SpreadProperty;
 
-var _builder = _interopRequireDefault(__webpack_require__(/*! ../builder */ "./node_modules/@babel/types/lib/builders/builder.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _builder = __webpack_require__(/*! ../builder */ "./node_modules/@babel/types/lib/builders/builder.js");
 
 function arrayExpression(elements) {
   return (0, _builder.default)("ArrayExpression", ...arguments);
@@ -2697,6 +2706,14 @@ function enumDefaultedMember(id) {
   return (0, _builder.default)("EnumDefaultedMember", ...arguments);
 }
 
+function indexedAccessType(objectType, indexType) {
+  return (0, _builder.default)("IndexedAccessType", ...arguments);
+}
+
+function optionalIndexedAccessType(objectType, indexType) {
+  return (0, _builder.default)("OptionalIndexedAccessType", ...arguments);
+}
+
 function jsxAttribute(name, value) {
   return (0, _builder.default)("JSXAttribute", ...arguments);
 }
@@ -2809,7 +2826,7 @@ function decorator(expression) {
   return (0, _builder.default)("Decorator", ...arguments);
 }
 
-function doExpression(body) {
+function doExpression(body, async) {
   return (0, _builder.default)("DoExpression", ...arguments);
 }
 
@@ -3991,6 +4008,18 @@ Object.defineProperty(exports, "EnumDefaultedMember", ({
     return _index.enumDefaultedMember;
   }
 }));
+Object.defineProperty(exports, "IndexedAccessType", ({
+  enumerable: true,
+  get: function () {
+    return _index.indexedAccessType;
+  }
+}));
+Object.defineProperty(exports, "OptionalIndexedAccessType", ({
+  enumerable: true,
+  get: function () {
+    return _index.optionalIndexedAccessType;
+  }
+}));
 Object.defineProperty(exports, "JSXAttribute", ({
   enumerable: true,
   get: function () {
@@ -4630,9 +4659,7 @@ exports.default = buildChildren;
 
 var _generated = __webpack_require__(/*! ../../validators/generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
 
-var _cleanJSXElementLiteralChild = _interopRequireDefault(__webpack_require__(/*! ../../utils/react/cleanJSXElementLiteralChild */ "./node_modules/@babel/types/lib/utils/react/cleanJSXElementLiteralChild.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cleanJSXElementLiteralChild = __webpack_require__(/*! ../../utils/react/cleanJSXElementLiteralChild */ "./node_modules/@babel/types/lib/utils/react/cleanJSXElementLiteralChild.js");
 
 function buildChildren(node) {
   const elements = [];
@@ -4671,9 +4698,7 @@ exports.default = createTSUnionType;
 
 var _generated = __webpack_require__(/*! ../generated */ "./node_modules/@babel/types/lib/builders/generated/index.js");
 
-var _removeTypeDuplicates = _interopRequireDefault(__webpack_require__(/*! ../../modifications/typescript/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/typescript/removeTypeDuplicates.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _removeTypeDuplicates = __webpack_require__(/*! ../../modifications/typescript/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/typescript/removeTypeDuplicates.js");
 
 function createTSUnionType(typeAnnotations) {
   const types = typeAnnotations.map(type => type.typeAnnotation);
@@ -4702,9 +4727,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = clone;
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cloneNode = __webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
 function clone(node) {
   return (0, _cloneNode.default)(node, false);
@@ -4726,9 +4749,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = cloneDeep;
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cloneNode = __webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
 function cloneDeep(node) {
   return (0, _cloneNode.default)(node);
@@ -4750,9 +4771,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = cloneDeepWithoutLoc;
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cloneNode = __webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
 function cloneDeepWithoutLoc(node) {
   return (0, _cloneNode.default)(node, true, true);
@@ -4898,9 +4917,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = cloneWithoutLoc;
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cloneNode = __webpack_require__(/*! ./cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
 function cloneWithoutLoc(node) {
   return (0, _cloneNode.default)(node, false, true);
@@ -4922,9 +4939,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = addComment;
 
-var _addComments = _interopRequireDefault(__webpack_require__(/*! ./addComments */ "./node_modules/@babel/types/lib/comments/addComments.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _addComments = __webpack_require__(/*! ./addComments */ "./node_modules/@babel/types/lib/comments/addComments.js");
 
 function addComment(node, type, content, line) {
   return (0, _addComments.default)(node, type, [{
@@ -4982,9 +4997,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = inheritInnerComments;
 
-var _inherit = _interopRequireDefault(__webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inherit = __webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js");
 
 function inheritInnerComments(child, parent) {
   (0, _inherit.default)("innerComments", child, parent);
@@ -5006,9 +5019,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = inheritLeadingComments;
 
-var _inherit = _interopRequireDefault(__webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inherit = __webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js");
 
 function inheritLeadingComments(child, parent) {
   (0, _inherit.default)("leadingComments", child, parent);
@@ -5030,9 +5041,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = inheritTrailingComments;
 
-var _inherit = _interopRequireDefault(__webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inherit = __webpack_require__(/*! ../utils/inherit */ "./node_modules/@babel/types/lib/utils/inherit.js");
 
 function inheritTrailingComments(child, parent) {
   (0, _inherit.default)("trailingComments", child, parent);
@@ -5054,13 +5063,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = inheritsComments;
 
-var _inheritTrailingComments = _interopRequireDefault(__webpack_require__(/*! ./inheritTrailingComments */ "./node_modules/@babel/types/lib/comments/inheritTrailingComments.js"));
+var _inheritTrailingComments = __webpack_require__(/*! ./inheritTrailingComments */ "./node_modules/@babel/types/lib/comments/inheritTrailingComments.js");
 
-var _inheritLeadingComments = _interopRequireDefault(__webpack_require__(/*! ./inheritLeadingComments */ "./node_modules/@babel/types/lib/comments/inheritLeadingComments.js"));
+var _inheritLeadingComments = __webpack_require__(/*! ./inheritLeadingComments */ "./node_modules/@babel/types/lib/comments/inheritLeadingComments.js");
 
-var _inheritInnerComments = _interopRequireDefault(__webpack_require__(/*! ./inheritInnerComments */ "./node_modules/@babel/types/lib/comments/inheritInnerComments.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inheritInnerComments = __webpack_require__(/*! ./inheritInnerComments */ "./node_modules/@babel/types/lib/comments/inheritInnerComments.js");
 
 function inheritsComments(child, parent) {
   (0, _inheritTrailingComments.default)(child, parent);
@@ -5279,9 +5286,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = ensureBlock;
 
-var _toBlock = _interopRequireDefault(__webpack_require__(/*! ./toBlock */ "./node_modules/@babel/types/lib/converters/toBlock.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _toBlock = __webpack_require__(/*! ./toBlock */ "./node_modules/@babel/types/lib/converters/toBlock.js");
 
 function ensureBlock(node, key = "body") {
   return node[key] = (0, _toBlock.default)(node[key], node);
@@ -5303,15 +5308,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = gatherSequenceExpressions;
 
-var _getBindingIdentifiers = _interopRequireDefault(__webpack_require__(/*! ../retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js"));
+var _getBindingIdentifiers = __webpack_require__(/*! ../retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js");
 
 var _generated = __webpack_require__(/*! ../validators/generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
 
 var _generated2 = __webpack_require__(/*! ../builders/generated */ "./node_modules/@babel/types/lib/builders/generated/index.js");
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ../clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cloneNode = __webpack_require__(/*! ../clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
 function gatherSequenceExpressions(nodes, scope, declars) {
   const exprs = [];
@@ -5390,9 +5393,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = toBindingIdentifierName;
 
-var _toIdentifier = _interopRequireDefault(__webpack_require__(/*! ./toIdentifier */ "./node_modules/@babel/types/lib/converters/toIdentifier.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _toIdentifier = __webpack_require__(/*! ./toIdentifier */ "./node_modules/@babel/types/lib/converters/toIdentifier.js");
 
 function toBindingIdentifierName(name) {
   name = (0, _toIdentifier.default)(name);
@@ -5528,11 +5529,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = toIdentifier;
 
-var _isValidIdentifier = _interopRequireDefault(__webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js"));
+var _isValidIdentifier = __webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js");
 
 var _helperValidatorIdentifier = __webpack_require__(/*! @babel/helper-validator-identifier */ "./node_modules/@babel/helper-validator-identifier/lib/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function toIdentifier(input) {
   input = input + "";
@@ -5572,11 +5571,9 @@ exports.default = toKeyAlias;
 
 var _generated = __webpack_require__(/*! ../validators/generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ../clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
+var _cloneNode = __webpack_require__(/*! ../clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
-var _removePropertiesDeep = _interopRequireDefault(__webpack_require__(/*! ../modifications/removePropertiesDeep */ "./node_modules/@babel/types/lib/modifications/removePropertiesDeep.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _removePropertiesDeep = __webpack_require__(/*! ../modifications/removePropertiesDeep */ "./node_modules/@babel/types/lib/modifications/removePropertiesDeep.js");
 
 function toKeyAlias(node, key = node.key) {
   let alias;
@@ -5628,9 +5625,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = toSequenceExpression;
 
-var _gatherSequenceExpressions = _interopRequireDefault(__webpack_require__(/*! ./gatherSequenceExpressions */ "./node_modules/@babel/types/lib/converters/gatherSequenceExpressions.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _gatherSequenceExpressions = __webpack_require__(/*! ./gatherSequenceExpressions */ "./node_modules/@babel/types/lib/converters/gatherSequenceExpressions.js");
 
 function toSequenceExpression(nodes, scope) {
   if (!(nodes != null && nodes.length)) return;
@@ -5718,11 +5713,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = void 0;
 
-var _isValidIdentifier = _interopRequireDefault(__webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js"));
+var _isValidIdentifier = __webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js");
 
 var _generated = __webpack_require__(/*! ../builders/generated */ "./node_modules/@babel/types/lib/builders/generated/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = valueToNode;
 exports.default = _default;
@@ -5733,12 +5726,12 @@ function isRegExp(value) {
 }
 
 function isPlainObject(value) {
-  if (typeof value !== "object" || value === null) {
+  if (typeof value !== "object" || value === null || Object.prototype.toString.call(value) !== "[object Object]") {
     return false;
   }
 
   const proto = Object.getPrototypeOf(value);
-  return proto === null || proto === Object.prototype;
+  return proto === null || Object.getPrototypeOf(proto) === null;
 }
 
 function valueToNode(value) {
@@ -5830,21 +5823,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.classMethodOrDeclareMethodCommon = exports.classMethodOrPropertyCommon = exports.patternLikeCommon = exports.functionDeclarationCommon = exports.functionTypeAnnotationCommon = exports.functionCommon = void 0;
 
-var _is = _interopRequireDefault(__webpack_require__(/*! ../validators/is */ "./node_modules/@babel/types/lib/validators/is.js"));
+var _is = __webpack_require__(/*! ../validators/is */ "./node_modules/@babel/types/lib/validators/is.js");
 
-var _isValidIdentifier = _interopRequireDefault(__webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js"));
+var _isValidIdentifier = __webpack_require__(/*! ../validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js");
 
 var _helperValidatorIdentifier = __webpack_require__(/*! @babel/helper-validator-identifier */ "./node_modules/@babel/helper-validator-identifier/lib/index.js");
 
 var _constants = __webpack_require__(/*! ../constants */ "./node_modules/@babel/types/lib/constants/index.js");
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 (0, _utils.default)("ArrayExpression", {
   fields: {
@@ -6111,7 +6098,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 });
 const functionCommon = {
   params: {
-    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Identifier", "Pattern", "RestElement", "TSParameterProperty")))
+    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Identifier", "Pattern", "RestElement")))
   },
   generator: {
     default: false
@@ -7086,6 +7073,9 @@ const classMethodOrPropertyCommon = {
   static: {
     default: false
   },
+  override: {
+    default: false
+  },
   computed: {
     default: false
   },
@@ -7106,6 +7096,9 @@ const classMethodOrPropertyCommon = {
 };
 exports.classMethodOrPropertyCommon = classMethodOrPropertyCommon;
 const classMethodOrDeclareMethodCommon = Object.assign({}, functionCommon, classMethodOrPropertyCommon, {
+  params: {
+    validate: (0, _utils.chain)((0, _utils.assertValueType)("array"), (0, _utils.assertEach)((0, _utils.assertNodeType)("Identifier", "Pattern", "RestElement", "TSParameterProperty")))
+  },
   kind: {
     validate: (0, _utils.assertOneOf)("get", "set", "method", "constructor"),
     default: "method"
@@ -7325,13 +7318,9 @@ exports.classMethodOrDeclareMethodCommon = classMethodOrDeclareMethodCommon;
 /* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 var _core = __webpack_require__(/*! ./core */ "./node_modules/@babel/types/lib/definitions/core.js");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 (0, _utils.default)("ArgumentPlaceholder", {});
 (0, _utils.default)("BindExpression", {
@@ -7465,10 +7454,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 });
 (0, _utils.default)("DoExpression", {
   visitor: ["body"],
+  builder: ["body", "async"],
   aliases: ["Expression"],
   fields: {
     body: {
       validate: (0, _utils.assertNodeType)("BlockStatement")
+    },
+    async: {
+      validate: (0, _utils.assertValueType)("boolean"),
+      default: false
     }
   }
 });
@@ -7548,11 +7542,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 "use strict";
 
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 const defineInterfaceishType = (name, typeParameterType = "TypeParameterDeclaration") => {
   (0, _utils.default)(name, {
@@ -8013,6 +8003,23 @@ defineInterfaceishType("InterfaceDeclaration");
     id: (0, _utils.validateType)("Identifier")
   }
 });
+(0, _utils.default)("IndexedAccessType", {
+  visitor: ["objectType", "indexType"],
+  aliases: ["Flow", "FlowType"],
+  fields: {
+    objectType: (0, _utils.validateType)("FlowType"),
+    indexType: (0, _utils.validateType)("FlowType")
+  }
+});
+(0, _utils.default)("OptionalIndexedAccessType", {
+  visitor: ["objectType", "indexType"],
+  aliases: ["Flow", "FlowType"],
+  fields: {
+    objectType: (0, _utils.validateType)("FlowType"),
+    indexType: (0, _utils.validateType)("FlowType"),
+    optional: (0, _utils.validate)((0, _utils.assertValueType)("boolean"))
+  }
+});
 
 /***/ }),
 
@@ -8090,6 +8097,8 @@ Object.defineProperty(exports, "PLACEHOLDERS_FLIPPED_ALIAS", ({
 }));
 exports.TYPES = void 0;
 
+var _toFastProperties = __webpack_require__(/*! to-fast-properties */ "./node_modules/to-fast-properties/index.js");
+
 __webpack_require__(/*! ./core */ "./node_modules/@babel/types/lib/definitions/core.js");
 
 __webpack_require__(/*! ./flow */ "./node_modules/@babel/types/lib/definitions/flow.js");
@@ -8106,16 +8115,22 @@ var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib
 
 var _placeholders = __webpack_require__(/*! ./placeholders */ "./node_modules/@babel/types/lib/definitions/placeholders.js");
 
-const toFastProperties = __webpack_require__(/*! to-fast-properties */ "./node_modules/to-fast-properties/index.js");
+_toFastProperties(_utils.VISITOR_KEYS);
 
-toFastProperties(_utils.VISITOR_KEYS);
-toFastProperties(_utils.ALIAS_KEYS);
-toFastProperties(_utils.FLIPPED_ALIAS_KEYS);
-toFastProperties(_utils.NODE_FIELDS);
-toFastProperties(_utils.BUILDER_KEYS);
-toFastProperties(_utils.DEPRECATED_KEYS);
-toFastProperties(_placeholders.PLACEHOLDERS_ALIAS);
-toFastProperties(_placeholders.PLACEHOLDERS_FLIPPED_ALIAS);
+_toFastProperties(_utils.ALIAS_KEYS);
+
+_toFastProperties(_utils.FLIPPED_ALIAS_KEYS);
+
+_toFastProperties(_utils.NODE_FIELDS);
+
+_toFastProperties(_utils.BUILDER_KEYS);
+
+_toFastProperties(_utils.DEPRECATED_KEYS);
+
+_toFastProperties(_placeholders.PLACEHOLDERS_ALIAS);
+
+_toFastProperties(_placeholders.PLACEHOLDERS_FLIPPED_ALIAS);
+
 const TYPES = Object.keys(_utils.VISITOR_KEYS).concat(Object.keys(_utils.FLIPPED_ALIAS_KEYS)).concat(Object.keys(_utils.DEPRECATED_KEYS));
 exports.TYPES = TYPES;
 
@@ -8130,11 +8145,7 @@ exports.TYPES = TYPES;
 "use strict";
 
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 (0, _utils.default)("JSXAttribute", {
   visitor: ["name", "value"],
@@ -8305,13 +8316,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 "use strict";
 
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 var _placeholders = __webpack_require__(/*! ./placeholders */ "./node_modules/@babel/types/lib/definitions/placeholders.js");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 {
   (0, _utils.default)("Noop", {
@@ -8393,13 +8400,9 @@ Object.keys(PLACEHOLDERS_ALIAS).forEach(type => {
 "use strict";
 
 
-var _utils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js"));
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/@babel/types/lib/definitions/utils.js");
 
 var _core = __webpack_require__(/*! ./core */ "./node_modules/@babel/types/lib/definitions/core.js");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const bool = (0, _utils.assertValueType)("boolean");
 const tSFunctionTypeAnnotationCommon = {
@@ -8475,13 +8478,18 @@ const namedTypeElementCommon = {
 (0, _utils.default)("TSMethodSignature", {
   aliases: ["TSTypeElement"],
   visitor: ["key", "typeParameters", "parameters", "typeAnnotation"],
-  fields: Object.assign({}, signatureDeclarationCommon, namedTypeElementCommon)
+  fields: Object.assign({}, signatureDeclarationCommon, namedTypeElementCommon, {
+    kind: {
+      validate: (0, _utils.assertOneOf)("method", "get", "set")
+    }
+  })
 });
 (0, _utils.default)("TSIndexSignature", {
   aliases: ["TSTypeElement"],
   visitor: ["parameters", "typeAnnotation"],
   fields: {
     readonly: (0, _utils.validateOptional)(bool),
+    static: (0, _utils.validateOptional)(bool),
     parameters: (0, _utils.validateArrayOfType)("Identifier"),
     typeAnnotation: (0, _utils.validateOptionalType)("TSTypeAnnotation")
   }
@@ -8859,11 +8867,9 @@ exports.chain = chain;
 exports.default = defineType;
 exports.NODE_PARENT_VALIDATIONS = exports.DEPRECATED_KEYS = exports.BUILDER_KEYS = exports.NODE_FIELDS = exports.FLIPPED_ALIAS_KEYS = exports.ALIAS_KEYS = exports.VISITOR_KEYS = void 0;
 
-var _is = _interopRequireDefault(__webpack_require__(/*! ../validators/is */ "./node_modules/@babel/types/lib/validators/is.js"));
+var _is = __webpack_require__(/*! ../validators/is */ "./node_modules/@babel/types/lib/validators/is.js");
 
 var _validate = __webpack_require__(/*! ../validators/validate */ "./node_modules/@babel/types/lib/validators/validate.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const VISITOR_KEYS = {};
 exports.VISITOR_KEYS = VISITOR_KEYS;
@@ -9573,13 +9579,13 @@ Object.defineProperty(exports, "buildMatchMemberExpression", ({
 }));
 exports.react = void 0;
 
-var _isReactComponent = _interopRequireDefault(__webpack_require__(/*! ./validators/react/isReactComponent */ "./node_modules/@babel/types/lib/validators/react/isReactComponent.js"));
+var _isReactComponent = __webpack_require__(/*! ./validators/react/isReactComponent */ "./node_modules/@babel/types/lib/validators/react/isReactComponent.js");
 
-var _isCompatTag = _interopRequireDefault(__webpack_require__(/*! ./validators/react/isCompatTag */ "./node_modules/@babel/types/lib/validators/react/isCompatTag.js"));
+var _isCompatTag = __webpack_require__(/*! ./validators/react/isCompatTag */ "./node_modules/@babel/types/lib/validators/react/isCompatTag.js");
 
-var _buildChildren = _interopRequireDefault(__webpack_require__(/*! ./builders/react/buildChildren */ "./node_modules/@babel/types/lib/builders/react/buildChildren.js"));
+var _buildChildren = __webpack_require__(/*! ./builders/react/buildChildren */ "./node_modules/@babel/types/lib/builders/react/buildChildren.js");
 
-var _assertNode = _interopRequireDefault(__webpack_require__(/*! ./asserts/assertNode */ "./node_modules/@babel/types/lib/asserts/assertNode.js"));
+var _assertNode = __webpack_require__(/*! ./asserts/assertNode */ "./node_modules/@babel/types/lib/asserts/assertNode.js");
 
 var _generated = __webpack_require__(/*! ./asserts/generated */ "./node_modules/@babel/types/lib/asserts/generated/index.js");
 
@@ -9595,11 +9601,11 @@ Object.keys(_generated).forEach(function (key) {
   });
 });
 
-var _createTypeAnnotationBasedOnTypeof = _interopRequireDefault(__webpack_require__(/*! ./builders/flow/createTypeAnnotationBasedOnTypeof */ "./node_modules/@babel/types/lib/builders/flow/createTypeAnnotationBasedOnTypeof.js"));
+var _createTypeAnnotationBasedOnTypeof = __webpack_require__(/*! ./builders/flow/createTypeAnnotationBasedOnTypeof */ "./node_modules/@babel/types/lib/builders/flow/createTypeAnnotationBasedOnTypeof.js");
 
-var _createFlowUnionType = _interopRequireDefault(__webpack_require__(/*! ./builders/flow/createFlowUnionType */ "./node_modules/@babel/types/lib/builders/flow/createFlowUnionType.js"));
+var _createFlowUnionType = __webpack_require__(/*! ./builders/flow/createFlowUnionType */ "./node_modules/@babel/types/lib/builders/flow/createFlowUnionType.js");
 
-var _createTSUnionType = _interopRequireDefault(__webpack_require__(/*! ./builders/typescript/createTSUnionType */ "./node_modules/@babel/types/lib/builders/typescript/createTSUnionType.js"));
+var _createTSUnionType = __webpack_require__(/*! ./builders/typescript/createTSUnionType */ "./node_modules/@babel/types/lib/builders/typescript/createTSUnionType.js");
 
 var _generated2 = __webpack_require__(/*! ./builders/generated */ "./node_modules/@babel/types/lib/builders/generated/index.js");
 
@@ -9629,29 +9635,29 @@ Object.keys(_uppercase).forEach(function (key) {
   });
 });
 
-var _cloneNode = _interopRequireDefault(__webpack_require__(/*! ./clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js"));
+var _cloneNode = __webpack_require__(/*! ./clone/cloneNode */ "./node_modules/@babel/types/lib/clone/cloneNode.js");
 
-var _clone = _interopRequireDefault(__webpack_require__(/*! ./clone/clone */ "./node_modules/@babel/types/lib/clone/clone.js"));
+var _clone = __webpack_require__(/*! ./clone/clone */ "./node_modules/@babel/types/lib/clone/clone.js");
 
-var _cloneDeep = _interopRequireDefault(__webpack_require__(/*! ./clone/cloneDeep */ "./node_modules/@babel/types/lib/clone/cloneDeep.js"));
+var _cloneDeep = __webpack_require__(/*! ./clone/cloneDeep */ "./node_modules/@babel/types/lib/clone/cloneDeep.js");
 
-var _cloneDeepWithoutLoc = _interopRequireDefault(__webpack_require__(/*! ./clone/cloneDeepWithoutLoc */ "./node_modules/@babel/types/lib/clone/cloneDeepWithoutLoc.js"));
+var _cloneDeepWithoutLoc = __webpack_require__(/*! ./clone/cloneDeepWithoutLoc */ "./node_modules/@babel/types/lib/clone/cloneDeepWithoutLoc.js");
 
-var _cloneWithoutLoc = _interopRequireDefault(__webpack_require__(/*! ./clone/cloneWithoutLoc */ "./node_modules/@babel/types/lib/clone/cloneWithoutLoc.js"));
+var _cloneWithoutLoc = __webpack_require__(/*! ./clone/cloneWithoutLoc */ "./node_modules/@babel/types/lib/clone/cloneWithoutLoc.js");
 
-var _addComment = _interopRequireDefault(__webpack_require__(/*! ./comments/addComment */ "./node_modules/@babel/types/lib/comments/addComment.js"));
+var _addComment = __webpack_require__(/*! ./comments/addComment */ "./node_modules/@babel/types/lib/comments/addComment.js");
 
-var _addComments = _interopRequireDefault(__webpack_require__(/*! ./comments/addComments */ "./node_modules/@babel/types/lib/comments/addComments.js"));
+var _addComments = __webpack_require__(/*! ./comments/addComments */ "./node_modules/@babel/types/lib/comments/addComments.js");
 
-var _inheritInnerComments = _interopRequireDefault(__webpack_require__(/*! ./comments/inheritInnerComments */ "./node_modules/@babel/types/lib/comments/inheritInnerComments.js"));
+var _inheritInnerComments = __webpack_require__(/*! ./comments/inheritInnerComments */ "./node_modules/@babel/types/lib/comments/inheritInnerComments.js");
 
-var _inheritLeadingComments = _interopRequireDefault(__webpack_require__(/*! ./comments/inheritLeadingComments */ "./node_modules/@babel/types/lib/comments/inheritLeadingComments.js"));
+var _inheritLeadingComments = __webpack_require__(/*! ./comments/inheritLeadingComments */ "./node_modules/@babel/types/lib/comments/inheritLeadingComments.js");
 
-var _inheritsComments = _interopRequireDefault(__webpack_require__(/*! ./comments/inheritsComments */ "./node_modules/@babel/types/lib/comments/inheritsComments.js"));
+var _inheritsComments = __webpack_require__(/*! ./comments/inheritsComments */ "./node_modules/@babel/types/lib/comments/inheritsComments.js");
 
-var _inheritTrailingComments = _interopRequireDefault(__webpack_require__(/*! ./comments/inheritTrailingComments */ "./node_modules/@babel/types/lib/comments/inheritTrailingComments.js"));
+var _inheritTrailingComments = __webpack_require__(/*! ./comments/inheritTrailingComments */ "./node_modules/@babel/types/lib/comments/inheritTrailingComments.js");
 
-var _removeComments = _interopRequireDefault(__webpack_require__(/*! ./comments/removeComments */ "./node_modules/@babel/types/lib/comments/removeComments.js"));
+var _removeComments = __webpack_require__(/*! ./comments/removeComments */ "./node_modules/@babel/types/lib/comments/removeComments.js");
 
 var _generated3 = __webpack_require__(/*! ./constants/generated */ "./node_modules/@babel/types/lib/constants/generated/index.js");
 
@@ -9681,25 +9687,25 @@ Object.keys(_constants).forEach(function (key) {
   });
 });
 
-var _ensureBlock = _interopRequireDefault(__webpack_require__(/*! ./converters/ensureBlock */ "./node_modules/@babel/types/lib/converters/ensureBlock.js"));
+var _ensureBlock = __webpack_require__(/*! ./converters/ensureBlock */ "./node_modules/@babel/types/lib/converters/ensureBlock.js");
 
-var _toBindingIdentifierName = _interopRequireDefault(__webpack_require__(/*! ./converters/toBindingIdentifierName */ "./node_modules/@babel/types/lib/converters/toBindingIdentifierName.js"));
+var _toBindingIdentifierName = __webpack_require__(/*! ./converters/toBindingIdentifierName */ "./node_modules/@babel/types/lib/converters/toBindingIdentifierName.js");
 
-var _toBlock = _interopRequireDefault(__webpack_require__(/*! ./converters/toBlock */ "./node_modules/@babel/types/lib/converters/toBlock.js"));
+var _toBlock = __webpack_require__(/*! ./converters/toBlock */ "./node_modules/@babel/types/lib/converters/toBlock.js");
 
-var _toComputedKey = _interopRequireDefault(__webpack_require__(/*! ./converters/toComputedKey */ "./node_modules/@babel/types/lib/converters/toComputedKey.js"));
+var _toComputedKey = __webpack_require__(/*! ./converters/toComputedKey */ "./node_modules/@babel/types/lib/converters/toComputedKey.js");
 
-var _toExpression = _interopRequireDefault(__webpack_require__(/*! ./converters/toExpression */ "./node_modules/@babel/types/lib/converters/toExpression.js"));
+var _toExpression = __webpack_require__(/*! ./converters/toExpression */ "./node_modules/@babel/types/lib/converters/toExpression.js");
 
-var _toIdentifier = _interopRequireDefault(__webpack_require__(/*! ./converters/toIdentifier */ "./node_modules/@babel/types/lib/converters/toIdentifier.js"));
+var _toIdentifier = __webpack_require__(/*! ./converters/toIdentifier */ "./node_modules/@babel/types/lib/converters/toIdentifier.js");
 
-var _toKeyAlias = _interopRequireDefault(__webpack_require__(/*! ./converters/toKeyAlias */ "./node_modules/@babel/types/lib/converters/toKeyAlias.js"));
+var _toKeyAlias = __webpack_require__(/*! ./converters/toKeyAlias */ "./node_modules/@babel/types/lib/converters/toKeyAlias.js");
 
-var _toSequenceExpression = _interopRequireDefault(__webpack_require__(/*! ./converters/toSequenceExpression */ "./node_modules/@babel/types/lib/converters/toSequenceExpression.js"));
+var _toSequenceExpression = __webpack_require__(/*! ./converters/toSequenceExpression */ "./node_modules/@babel/types/lib/converters/toSequenceExpression.js");
 
-var _toStatement = _interopRequireDefault(__webpack_require__(/*! ./converters/toStatement */ "./node_modules/@babel/types/lib/converters/toStatement.js"));
+var _toStatement = __webpack_require__(/*! ./converters/toStatement */ "./node_modules/@babel/types/lib/converters/toStatement.js");
 
-var _valueToNode = _interopRequireDefault(__webpack_require__(/*! ./converters/valueToNode */ "./node_modules/@babel/types/lib/converters/valueToNode.js"));
+var _valueToNode = __webpack_require__(/*! ./converters/valueToNode */ "./node_modules/@babel/types/lib/converters/valueToNode.js");
 
 var _definitions = __webpack_require__(/*! ./definitions */ "./node_modules/@babel/types/lib/definitions/index.js");
 
@@ -9715,23 +9721,23 @@ Object.keys(_definitions).forEach(function (key) {
   });
 });
 
-var _appendToMemberExpression = _interopRequireDefault(__webpack_require__(/*! ./modifications/appendToMemberExpression */ "./node_modules/@babel/types/lib/modifications/appendToMemberExpression.js"));
+var _appendToMemberExpression = __webpack_require__(/*! ./modifications/appendToMemberExpression */ "./node_modules/@babel/types/lib/modifications/appendToMemberExpression.js");
 
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./modifications/inherits */ "./node_modules/@babel/types/lib/modifications/inherits.js"));
+var _inherits = __webpack_require__(/*! ./modifications/inherits */ "./node_modules/@babel/types/lib/modifications/inherits.js");
 
-var _prependToMemberExpression = _interopRequireDefault(__webpack_require__(/*! ./modifications/prependToMemberExpression */ "./node_modules/@babel/types/lib/modifications/prependToMemberExpression.js"));
+var _prependToMemberExpression = __webpack_require__(/*! ./modifications/prependToMemberExpression */ "./node_modules/@babel/types/lib/modifications/prependToMemberExpression.js");
 
-var _removeProperties = _interopRequireDefault(__webpack_require__(/*! ./modifications/removeProperties */ "./node_modules/@babel/types/lib/modifications/removeProperties.js"));
+var _removeProperties = __webpack_require__(/*! ./modifications/removeProperties */ "./node_modules/@babel/types/lib/modifications/removeProperties.js");
 
-var _removePropertiesDeep = _interopRequireDefault(__webpack_require__(/*! ./modifications/removePropertiesDeep */ "./node_modules/@babel/types/lib/modifications/removePropertiesDeep.js"));
+var _removePropertiesDeep = __webpack_require__(/*! ./modifications/removePropertiesDeep */ "./node_modules/@babel/types/lib/modifications/removePropertiesDeep.js");
 
-var _removeTypeDuplicates = _interopRequireDefault(__webpack_require__(/*! ./modifications/flow/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/flow/removeTypeDuplicates.js"));
+var _removeTypeDuplicates = __webpack_require__(/*! ./modifications/flow/removeTypeDuplicates */ "./node_modules/@babel/types/lib/modifications/flow/removeTypeDuplicates.js");
 
-var _getBindingIdentifiers = _interopRequireDefault(__webpack_require__(/*! ./retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js"));
+var _getBindingIdentifiers = __webpack_require__(/*! ./retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js");
 
-var _getOuterBindingIdentifiers = _interopRequireDefault(__webpack_require__(/*! ./retrievers/getOuterBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getOuterBindingIdentifiers.js"));
+var _getOuterBindingIdentifiers = __webpack_require__(/*! ./retrievers/getOuterBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getOuterBindingIdentifiers.js");
 
-var _traverse = _interopRequireWildcard(__webpack_require__(/*! ./traverse/traverse */ "./node_modules/@babel/types/lib/traverse/traverse.js"));
+var _traverse = __webpack_require__(/*! ./traverse/traverse */ "./node_modules/@babel/types/lib/traverse/traverse.js");
 
 Object.keys(_traverse).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -9745,45 +9751,45 @@ Object.keys(_traverse).forEach(function (key) {
   });
 });
 
-var _traverseFast = _interopRequireDefault(__webpack_require__(/*! ./traverse/traverseFast */ "./node_modules/@babel/types/lib/traverse/traverseFast.js"));
+var _traverseFast = __webpack_require__(/*! ./traverse/traverseFast */ "./node_modules/@babel/types/lib/traverse/traverseFast.js");
 
-var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! ./utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js"));
+var _shallowEqual = __webpack_require__(/*! ./utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js");
 
-var _is = _interopRequireDefault(__webpack_require__(/*! ./validators/is */ "./node_modules/@babel/types/lib/validators/is.js"));
+var _is = __webpack_require__(/*! ./validators/is */ "./node_modules/@babel/types/lib/validators/is.js");
 
-var _isBinding = _interopRequireDefault(__webpack_require__(/*! ./validators/isBinding */ "./node_modules/@babel/types/lib/validators/isBinding.js"));
+var _isBinding = __webpack_require__(/*! ./validators/isBinding */ "./node_modules/@babel/types/lib/validators/isBinding.js");
 
-var _isBlockScoped = _interopRequireDefault(__webpack_require__(/*! ./validators/isBlockScoped */ "./node_modules/@babel/types/lib/validators/isBlockScoped.js"));
+var _isBlockScoped = __webpack_require__(/*! ./validators/isBlockScoped */ "./node_modules/@babel/types/lib/validators/isBlockScoped.js");
 
-var _isImmutable = _interopRequireDefault(__webpack_require__(/*! ./validators/isImmutable */ "./node_modules/@babel/types/lib/validators/isImmutable.js"));
+var _isImmutable = __webpack_require__(/*! ./validators/isImmutable */ "./node_modules/@babel/types/lib/validators/isImmutable.js");
 
-var _isLet = _interopRequireDefault(__webpack_require__(/*! ./validators/isLet */ "./node_modules/@babel/types/lib/validators/isLet.js"));
+var _isLet = __webpack_require__(/*! ./validators/isLet */ "./node_modules/@babel/types/lib/validators/isLet.js");
 
-var _isNode = _interopRequireDefault(__webpack_require__(/*! ./validators/isNode */ "./node_modules/@babel/types/lib/validators/isNode.js"));
+var _isNode = __webpack_require__(/*! ./validators/isNode */ "./node_modules/@babel/types/lib/validators/isNode.js");
 
-var _isNodesEquivalent = _interopRequireDefault(__webpack_require__(/*! ./validators/isNodesEquivalent */ "./node_modules/@babel/types/lib/validators/isNodesEquivalent.js"));
+var _isNodesEquivalent = __webpack_require__(/*! ./validators/isNodesEquivalent */ "./node_modules/@babel/types/lib/validators/isNodesEquivalent.js");
 
-var _isPlaceholderType = _interopRequireDefault(__webpack_require__(/*! ./validators/isPlaceholderType */ "./node_modules/@babel/types/lib/validators/isPlaceholderType.js"));
+var _isPlaceholderType = __webpack_require__(/*! ./validators/isPlaceholderType */ "./node_modules/@babel/types/lib/validators/isPlaceholderType.js");
 
-var _isReferenced = _interopRequireDefault(__webpack_require__(/*! ./validators/isReferenced */ "./node_modules/@babel/types/lib/validators/isReferenced.js"));
+var _isReferenced = __webpack_require__(/*! ./validators/isReferenced */ "./node_modules/@babel/types/lib/validators/isReferenced.js");
 
-var _isScope = _interopRequireDefault(__webpack_require__(/*! ./validators/isScope */ "./node_modules/@babel/types/lib/validators/isScope.js"));
+var _isScope = __webpack_require__(/*! ./validators/isScope */ "./node_modules/@babel/types/lib/validators/isScope.js");
 
-var _isSpecifierDefault = _interopRequireDefault(__webpack_require__(/*! ./validators/isSpecifierDefault */ "./node_modules/@babel/types/lib/validators/isSpecifierDefault.js"));
+var _isSpecifierDefault = __webpack_require__(/*! ./validators/isSpecifierDefault */ "./node_modules/@babel/types/lib/validators/isSpecifierDefault.js");
 
-var _isType = _interopRequireDefault(__webpack_require__(/*! ./validators/isType */ "./node_modules/@babel/types/lib/validators/isType.js"));
+var _isType = __webpack_require__(/*! ./validators/isType */ "./node_modules/@babel/types/lib/validators/isType.js");
 
-var _isValidES3Identifier = _interopRequireDefault(__webpack_require__(/*! ./validators/isValidES3Identifier */ "./node_modules/@babel/types/lib/validators/isValidES3Identifier.js"));
+var _isValidES3Identifier = __webpack_require__(/*! ./validators/isValidES3Identifier */ "./node_modules/@babel/types/lib/validators/isValidES3Identifier.js");
 
-var _isValidIdentifier = _interopRequireDefault(__webpack_require__(/*! ./validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js"));
+var _isValidIdentifier = __webpack_require__(/*! ./validators/isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js");
 
-var _isVar = _interopRequireDefault(__webpack_require__(/*! ./validators/isVar */ "./node_modules/@babel/types/lib/validators/isVar.js"));
+var _isVar = __webpack_require__(/*! ./validators/isVar */ "./node_modules/@babel/types/lib/validators/isVar.js");
 
-var _matchesPattern = _interopRequireDefault(__webpack_require__(/*! ./validators/matchesPattern */ "./node_modules/@babel/types/lib/validators/matchesPattern.js"));
+var _matchesPattern = __webpack_require__(/*! ./validators/matchesPattern */ "./node_modules/@babel/types/lib/validators/matchesPattern.js");
 
-var _validate = _interopRequireDefault(__webpack_require__(/*! ./validators/validate */ "./node_modules/@babel/types/lib/validators/validate.js"));
+var _validate = __webpack_require__(/*! ./validators/validate */ "./node_modules/@babel/types/lib/validators/validate.js");
 
-var _buildMatchMemberExpression = _interopRequireDefault(__webpack_require__(/*! ./validators/buildMatchMemberExpression */ "./node_modules/@babel/types/lib/validators/buildMatchMemberExpression.js"));
+var _buildMatchMemberExpression = __webpack_require__(/*! ./validators/buildMatchMemberExpression */ "./node_modules/@babel/types/lib/validators/buildMatchMemberExpression.js");
 
 var _generated4 = __webpack_require__(/*! ./validators/generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
 
@@ -9812,13 +9818,6 @@ Object.keys(_generated5).forEach(function (key) {
     }
   });
 });
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 const react = {
   isReactComponent: _isReactComponent.default,
   isCompatTag: _isCompatTag.default,
@@ -9957,9 +9956,7 @@ exports.default = inherits;
 
 var _constants = __webpack_require__(/*! ../constants */ "./node_modules/@babel/types/lib/constants/index.js");
 
-var _inheritsComments = _interopRequireDefault(__webpack_require__(/*! ../comments/inheritsComments */ "./node_modules/@babel/types/lib/comments/inheritsComments.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inheritsComments = __webpack_require__(/*! ../comments/inheritsComments */ "./node_modules/@babel/types/lib/comments/inheritsComments.js");
 
 function inherits(child, parent) {
   if (!child || !parent) return child;
@@ -10061,11 +10058,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = removePropertiesDeep;
 
-var _traverseFast = _interopRequireDefault(__webpack_require__(/*! ../traverse/traverseFast */ "./node_modules/@babel/types/lib/traverse/traverseFast.js"));
+var _traverseFast = __webpack_require__(/*! ../traverse/traverseFast */ "./node_modules/@babel/types/lib/traverse/traverseFast.js");
 
-var _removeProperties = _interopRequireDefault(__webpack_require__(/*! ./removeProperties */ "./node_modules/@babel/types/lib/modifications/removeProperties.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _removeProperties = __webpack_require__(/*! ./removeProperties */ "./node_modules/@babel/types/lib/modifications/removeProperties.js");
 
 function removePropertiesDeep(tree, opts) {
   (0, _traverseFast.default)(tree, _removeProperties.default, opts);
@@ -10265,9 +10260,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = void 0;
 
-var _getBindingIdentifiers = _interopRequireDefault(__webpack_require__(/*! ./getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _getBindingIdentifiers = __webpack_require__(/*! ./getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js");
 
 var _default = getOuterBindingIdentifiers;
 exports.default = _default;
@@ -10502,9 +10495,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = buildMatchMemberExpression;
 
-var _matchesPattern = _interopRequireDefault(__webpack_require__(/*! ./matchesPattern */ "./node_modules/@babel/types/lib/validators/matchesPattern.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _matchesPattern = __webpack_require__(/*! ./matchesPattern */ "./node_modules/@babel/types/lib/validators/matchesPattern.js");
 
 function buildMatchMemberExpression(match, allowPartial) {
   const parts = match.split(".");
@@ -10669,6 +10660,8 @@ exports.isEnumBooleanMember = isEnumBooleanMember;
 exports.isEnumNumberMember = isEnumNumberMember;
 exports.isEnumStringMember = isEnumStringMember;
 exports.isEnumDefaultedMember = isEnumDefaultedMember;
+exports.isIndexedAccessType = isIndexedAccessType;
+exports.isOptionalIndexedAccessType = isOptionalIndexedAccessType;
 exports.isJSXAttribute = isJSXAttribute;
 exports.isJSXClosingElement = isJSXClosingElement;
 exports.isJSXElement = isJSXElement;
@@ -10818,9 +10811,7 @@ exports.isRegexLiteral = isRegexLiteral;
 exports.isRestProperty = isRestProperty;
 exports.isSpreadProperty = isSpreadProperty;
 
-var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! ../../utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _shallowEqual = __webpack_require__(/*! ../../utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js");
 
 function isArrayExpression(node, opts) {
   if (!node) return false;
@@ -12982,6 +12973,36 @@ function isEnumDefaultedMember(node, opts) {
   return false;
 }
 
+function isIndexedAccessType(node, opts) {
+  if (!node) return false;
+  const nodeType = node.type;
+
+  if (nodeType === "IndexedAccessType") {
+    if (typeof opts === "undefined") {
+      return true;
+    } else {
+      return (0, _shallowEqual.default)(node, opts);
+    }
+  }
+
+  return false;
+}
+
+function isOptionalIndexedAccessType(node, opts) {
+  if (!node) return false;
+  const nodeType = node.type;
+
+  if (nodeType === "OptionalIndexedAccessType") {
+    if (typeof opts === "undefined") {
+      return true;
+    } else {
+      return (0, _shallowEqual.default)(node, opts);
+    }
+  }
+
+  return false;
+}
+
 function isJSXAttribute(node, opts) {
   if (!node) return false;
   const nodeType = node.type;
@@ -14966,7 +14987,7 @@ function isFlow(node, opts) {
   if (!node) return false;
   const nodeType = node.type;
 
-  if ("AnyTypeAnnotation" === nodeType || "ArrayTypeAnnotation" === nodeType || "BooleanTypeAnnotation" === nodeType || "BooleanLiteralTypeAnnotation" === nodeType || "NullLiteralTypeAnnotation" === nodeType || "ClassImplements" === nodeType || "DeclareClass" === nodeType || "DeclareFunction" === nodeType || "DeclareInterface" === nodeType || "DeclareModule" === nodeType || "DeclareModuleExports" === nodeType || "DeclareTypeAlias" === nodeType || "DeclareOpaqueType" === nodeType || "DeclareVariable" === nodeType || "DeclareExportDeclaration" === nodeType || "DeclareExportAllDeclaration" === nodeType || "DeclaredPredicate" === nodeType || "ExistsTypeAnnotation" === nodeType || "FunctionTypeAnnotation" === nodeType || "FunctionTypeParam" === nodeType || "GenericTypeAnnotation" === nodeType || "InferredPredicate" === nodeType || "InterfaceExtends" === nodeType || "InterfaceDeclaration" === nodeType || "InterfaceTypeAnnotation" === nodeType || "IntersectionTypeAnnotation" === nodeType || "MixedTypeAnnotation" === nodeType || "EmptyTypeAnnotation" === nodeType || "NullableTypeAnnotation" === nodeType || "NumberLiteralTypeAnnotation" === nodeType || "NumberTypeAnnotation" === nodeType || "ObjectTypeAnnotation" === nodeType || "ObjectTypeInternalSlot" === nodeType || "ObjectTypeCallProperty" === nodeType || "ObjectTypeIndexer" === nodeType || "ObjectTypeProperty" === nodeType || "ObjectTypeSpreadProperty" === nodeType || "OpaqueType" === nodeType || "QualifiedTypeIdentifier" === nodeType || "StringLiteralTypeAnnotation" === nodeType || "StringTypeAnnotation" === nodeType || "SymbolTypeAnnotation" === nodeType || "ThisTypeAnnotation" === nodeType || "TupleTypeAnnotation" === nodeType || "TypeofTypeAnnotation" === nodeType || "TypeAlias" === nodeType || "TypeAnnotation" === nodeType || "TypeCastExpression" === nodeType || "TypeParameter" === nodeType || "TypeParameterDeclaration" === nodeType || "TypeParameterInstantiation" === nodeType || "UnionTypeAnnotation" === nodeType || "Variance" === nodeType || "VoidTypeAnnotation" === nodeType) {
+  if ("AnyTypeAnnotation" === nodeType || "ArrayTypeAnnotation" === nodeType || "BooleanTypeAnnotation" === nodeType || "BooleanLiteralTypeAnnotation" === nodeType || "NullLiteralTypeAnnotation" === nodeType || "ClassImplements" === nodeType || "DeclareClass" === nodeType || "DeclareFunction" === nodeType || "DeclareInterface" === nodeType || "DeclareModule" === nodeType || "DeclareModuleExports" === nodeType || "DeclareTypeAlias" === nodeType || "DeclareOpaqueType" === nodeType || "DeclareVariable" === nodeType || "DeclareExportDeclaration" === nodeType || "DeclareExportAllDeclaration" === nodeType || "DeclaredPredicate" === nodeType || "ExistsTypeAnnotation" === nodeType || "FunctionTypeAnnotation" === nodeType || "FunctionTypeParam" === nodeType || "GenericTypeAnnotation" === nodeType || "InferredPredicate" === nodeType || "InterfaceExtends" === nodeType || "InterfaceDeclaration" === nodeType || "InterfaceTypeAnnotation" === nodeType || "IntersectionTypeAnnotation" === nodeType || "MixedTypeAnnotation" === nodeType || "EmptyTypeAnnotation" === nodeType || "NullableTypeAnnotation" === nodeType || "NumberLiteralTypeAnnotation" === nodeType || "NumberTypeAnnotation" === nodeType || "ObjectTypeAnnotation" === nodeType || "ObjectTypeInternalSlot" === nodeType || "ObjectTypeCallProperty" === nodeType || "ObjectTypeIndexer" === nodeType || "ObjectTypeProperty" === nodeType || "ObjectTypeSpreadProperty" === nodeType || "OpaqueType" === nodeType || "QualifiedTypeIdentifier" === nodeType || "StringLiteralTypeAnnotation" === nodeType || "StringTypeAnnotation" === nodeType || "SymbolTypeAnnotation" === nodeType || "ThisTypeAnnotation" === nodeType || "TupleTypeAnnotation" === nodeType || "TypeofTypeAnnotation" === nodeType || "TypeAlias" === nodeType || "TypeAnnotation" === nodeType || "TypeCastExpression" === nodeType || "TypeParameter" === nodeType || "TypeParameterDeclaration" === nodeType || "TypeParameterInstantiation" === nodeType || "UnionTypeAnnotation" === nodeType || "Variance" === nodeType || "VoidTypeAnnotation" === nodeType || "IndexedAccessType" === nodeType || "OptionalIndexedAccessType" === nodeType) {
     if (typeof opts === "undefined") {
       return true;
     } else {
@@ -14981,7 +15002,7 @@ function isFlowType(node, opts) {
   if (!node) return false;
   const nodeType = node.type;
 
-  if ("AnyTypeAnnotation" === nodeType || "ArrayTypeAnnotation" === nodeType || "BooleanTypeAnnotation" === nodeType || "BooleanLiteralTypeAnnotation" === nodeType || "NullLiteralTypeAnnotation" === nodeType || "ExistsTypeAnnotation" === nodeType || "FunctionTypeAnnotation" === nodeType || "GenericTypeAnnotation" === nodeType || "InterfaceTypeAnnotation" === nodeType || "IntersectionTypeAnnotation" === nodeType || "MixedTypeAnnotation" === nodeType || "EmptyTypeAnnotation" === nodeType || "NullableTypeAnnotation" === nodeType || "NumberLiteralTypeAnnotation" === nodeType || "NumberTypeAnnotation" === nodeType || "ObjectTypeAnnotation" === nodeType || "StringLiteralTypeAnnotation" === nodeType || "StringTypeAnnotation" === nodeType || "SymbolTypeAnnotation" === nodeType || "ThisTypeAnnotation" === nodeType || "TupleTypeAnnotation" === nodeType || "TypeofTypeAnnotation" === nodeType || "UnionTypeAnnotation" === nodeType || "VoidTypeAnnotation" === nodeType) {
+  if ("AnyTypeAnnotation" === nodeType || "ArrayTypeAnnotation" === nodeType || "BooleanTypeAnnotation" === nodeType || "BooleanLiteralTypeAnnotation" === nodeType || "NullLiteralTypeAnnotation" === nodeType || "ExistsTypeAnnotation" === nodeType || "FunctionTypeAnnotation" === nodeType || "GenericTypeAnnotation" === nodeType || "InterfaceTypeAnnotation" === nodeType || "IntersectionTypeAnnotation" === nodeType || "MixedTypeAnnotation" === nodeType || "EmptyTypeAnnotation" === nodeType || "NullableTypeAnnotation" === nodeType || "NumberLiteralTypeAnnotation" === nodeType || "NumberTypeAnnotation" === nodeType || "ObjectTypeAnnotation" === nodeType || "StringLiteralTypeAnnotation" === nodeType || "StringTypeAnnotation" === nodeType || "SymbolTypeAnnotation" === nodeType || "ThisTypeAnnotation" === nodeType || "TupleTypeAnnotation" === nodeType || "TypeofTypeAnnotation" === nodeType || "UnionTypeAnnotation" === nodeType || "VoidTypeAnnotation" === nodeType || "IndexedAccessType" === nodeType || "OptionalIndexedAccessType" === nodeType) {
     if (typeof opts === "undefined") {
       return true;
     } else {
@@ -15222,15 +15243,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = is;
 
-var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! ../utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js"));
+var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ "./node_modules/@babel/types/lib/utils/shallowEqual.js");
 
-var _isType = _interopRequireDefault(__webpack_require__(/*! ./isType */ "./node_modules/@babel/types/lib/validators/isType.js"));
+var _isType = __webpack_require__(/*! ./isType */ "./node_modules/@babel/types/lib/validators/isType.js");
 
-var _isPlaceholderType = _interopRequireDefault(__webpack_require__(/*! ./isPlaceholderType */ "./node_modules/@babel/types/lib/validators/isPlaceholderType.js"));
+var _isPlaceholderType = __webpack_require__(/*! ./isPlaceholderType */ "./node_modules/@babel/types/lib/validators/isPlaceholderType.js");
 
 var _definitions = __webpack_require__(/*! ../definitions */ "./node_modules/@babel/types/lib/definitions/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function is(type, node, opts) {
   if (!node) return false;
@@ -15267,9 +15286,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = isBinding;
 
-var _getBindingIdentifiers = _interopRequireDefault(__webpack_require__(/*! ../retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _getBindingIdentifiers = __webpack_require__(/*! ../retrievers/getBindingIdentifiers */ "./node_modules/@babel/types/lib/retrievers/getBindingIdentifiers.js");
 
 function isBinding(node, parent, grandparent) {
   if (grandparent && node.type === "Identifier" && parent.type === "ObjectProperty" && grandparent.type === "ObjectExpression") {
@@ -15312,9 +15329,7 @@ exports.default = isBlockScoped;
 
 var _generated = __webpack_require__(/*! ./generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
 
-var _isLet = _interopRequireDefault(__webpack_require__(/*! ./isLet */ "./node_modules/@babel/types/lib/validators/isLet.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _isLet = __webpack_require__(/*! ./isLet */ "./node_modules/@babel/types/lib/validators/isLet.js");
 
 function isBlockScoped(node) {
   return (0, _generated.isFunctionDeclaration)(node) || (0, _generated.isClassDeclaration)(node) || (0, _isLet.default)(node);
@@ -15336,11 +15351,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = isImmutable;
 
-var _isType = _interopRequireDefault(__webpack_require__(/*! ./isType */ "./node_modules/@babel/types/lib/validators/isType.js"));
+var _isType = __webpack_require__(/*! ./isType */ "./node_modules/@babel/types/lib/validators/isType.js");
 
 var _generated = __webpack_require__(/*! ./generated */ "./node_modules/@babel/types/lib/validators/generated/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function isImmutable(node) {
   if ((0, _isType.default)(node.type, "Immutable")) return true;
@@ -15740,9 +15753,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = isValidES3Identifier;
 
-var _isValidIdentifier = _interopRequireDefault(__webpack_require__(/*! ./isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _isValidIdentifier = __webpack_require__(/*! ./isValidIdentifier */ "./node_modules/@babel/types/lib/validators/isValidIdentifier.js");
 
 const RESERVED_WORDS_ES3_ONLY = new Set(["abstract", "boolean", "byte", "char", "double", "enum", "final", "float", "goto", "implements", "int", "interface", "long", "native", "package", "private", "protected", "public", "short", "static", "synchronized", "throws", "transient", "volatile"]);
 
@@ -15846,6 +15857,8 @@ function matchesPattern(member, match, allowPartial) {
       value = node.name;
     } else if ((0, _generated.isStringLiteral)(node)) {
       value = node.value;
+    } else if ((0, _generated.isThisExpression)(node)) {
+      value = "this";
     } else {
       return false;
     }
@@ -15892,9 +15905,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = void 0;
 
-var _buildMatchMemberExpression = _interopRequireDefault(__webpack_require__(/*! ../buildMatchMemberExpression */ "./node_modules/@babel/types/lib/validators/buildMatchMemberExpression.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _buildMatchMemberExpression = __webpack_require__(/*! ../buildMatchMemberExpression */ "./node_modules/@babel/types/lib/validators/buildMatchMemberExpression.js");
 
 const isReactComponent = (0, _buildMatchMemberExpression.default)("React.Component");
 var _default = isReactComponent;
@@ -16118,6 +16129,7 @@ function initVue() {
         "title": "Why should I buy a smartwatch?",
         "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }],
+      "sliderTest": ["img/blog-65 (1).jpg", "img/blog-66.jpg", "img/blog-67 (1).jpg"],
       "featAuthor": {
         "name": "John Doe",
         "icon": "img/avatar.jpg",
@@ -16235,6 +16247,7 @@ function initVue() {
       "showDescr": false,
       "activePreview": "",
       "activeImageSlider": 0,
+      "slideActive": "",
       "showLightbox": false,
       "activeImage": "",
       "activeIndex": "",
@@ -16284,6 +16297,9 @@ function initVue() {
         var max = this.slider.length - 1;
         this.activeImageSlider == max ? this.activeImageSlider = 0 : this.activeImageSlider++;
       },
+      pauseSlider: function pauseSlider() {
+        clearInterval(this.slideActive);
+      },
       scrollLeft: function scrollLeft() {
         var content = document.querySelector("#carousel > .container");
         var boxWidth = document.querySelector(".category").clientWidth;
@@ -16295,6 +16311,8 @@ function initVue() {
         content.scrollLeft += boxWidth + 20;
       }
     },
+    // Non usare filter per stampare HTML
+    // Solo testo semplice
     filters: {
       commentNotification: function commentNotification(post) {
         var chevron = "<i class=\"fas fa-chevron-right\"></i>";
@@ -16303,7 +16321,7 @@ function initVue() {
       }
     },
     mounted: function mounted() {
-      setInterval(this.nextImage, 2000);
+      this.slideActive = setInterval(this.nextImage, 2000);
     }
   });
 }
@@ -16686,7 +16704,7 @@ module.exports = function toFastproperties(o) {
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkproj_html_vuejs"] = self["webpackChunkproj_html_vuejs"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

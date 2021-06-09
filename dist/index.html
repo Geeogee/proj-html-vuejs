@@ -170,20 +170,24 @@
                                 Featured posts
                             </h3>
 
-                            <div id="slider">
-                                <img v-for="(post, index) in slider" :key="index" :src="(index == activeImageSlider) ? post.img : ''">                                 
+                            <div id="slider" @mouseenter="pauseSlider" @mouseleave="slideActive = setInterval(nextImage, 2000)">
                                 <div class="layover"></div>
-                                <div class="thumb-text">
-                                    <div class="label">
-                                        {{ slider[activeImageSlider].label }}
+                                <transition-group name="left-slide" tag="div" class="wrapper-image-slider">
+                                    <div v-for="(post, index) in slider" :key="post.id" v-if="(activeImageSlider == index)">
+                                        <img class="slide-image" :src="post.img">
+                                        <div class="thumb-text">
+                                            <div class="label">
+                                                {{ slider[activeImageSlider].label }}
+                                            </div>
+                                            <h2>
+                                                {{ slider[activeImageSlider].title }}
+                                            </h2>
+                                            <div class="descr">
+                                                {{slider[activeImageSlider].descr }}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h2>
-                                        {{ slider[activeImageSlider].title }}
-                                    </h2>
-                                    <div class="descr">
-                                        {{slider[activeImageSlider].descr }}
-                                    </div>
-                                </div>
+                                </transition-group>
                             </div>
                         </div>
                         <div id="featured-author">
