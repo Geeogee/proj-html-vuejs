@@ -83,7 +83,14 @@
                             </a> 
                             <ul :class="(link.dropdownType == 'small') ? 'dropdown' : 'big-dropdown'" v-if="link.dropdownOpen">
                                 <li v-for="dropdown in link.dropdown">
-                                    {{ dropdown.name }}
+                                    <span class="big-dropdown-title">
+                                        {{ dropdown.name }}
+                                    </span>
+                                    <ul class="sub-dropdown" v-if="link.dropdownType == 'big'">
+                                        <li v-for="element in dropdown.dropdown">
+                                            {{ element }}
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

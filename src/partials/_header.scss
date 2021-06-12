@@ -126,27 +126,63 @@ header {
                         @include flexRow(null,center);
                         border-bottom: 1px solid $light-gray;
                         padding: 10px;
+
+                        &:hover {
+
+                            background-color: $white-smoke;
+                        }
                     }
 
                  }
 
                  .big-dropdown {
 
-                    @include flexRow(space-between,null);
+                    @include flexRow(center,null);
                     list-style-type: none;
                     position: absolute;
                     top: calc(100% - 20px);
                     left: 0;
                     width: 100%;
-                    min-height: 500px;
+                    min-height: 300px;
                     z-index: 99;
-                    background-color: $secondary-white;  
+                    background-color: $secondary-white;
                     padding: 10px;
 
-                    & > li:first-child {
+                    .big-dropdown-title {
+
+                        text-transform: uppercase;
+                        font-weight: 600;
+                    }
+
+                    & > li {
+
+                        flex-basis: 25%;
+                    }
+
+                    .sub-dropdown {
+
+                        list-style-type: none;
+                        margin-top: 30px;
+                        color: $mouse-gray;
+                        font-size: $base-font - 1px;
+
+                        li {
+
+                            margin: 5px;
+                            padding: 5px;
+                            &:hover {
+
+                                background-color: $white-smoke;
+                            }
+                        }
+
+                        
+                    }
+
+                    & > li {
 
                         padding-top: 20px;
-                     }
+                    }
                  }
 
                  

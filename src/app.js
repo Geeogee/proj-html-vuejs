@@ -45,22 +45,76 @@ function initVue() {
 
                         {
                             "name" : "Elements1",
-                            "url" : "#"
+                            "url" : "#",
+                            "dropdown" : [
+                                
+                                "Accordions",
+                                "Toggles",
+                                "Tabs",
+                                "Icons",
+                                "Icon Boxes",
+                                "Carousels",
+                                "Modals",
+                                "Light Boxes",
+                                "Word Rotator",
+                                "Before / After",
+                                "360° Image Viewver",
+                            ]
                         },
 
                         {
                             "name" : "Elements2",
-                            "url" : "#"
+                            "url" : "#",
+                            "dropdown" : [
+                                
+                                "Buttons",
+                                "Badges",
+                                "Lists",
+                                "Cards",
+                                "Image Gallery",
+                                "Image Frames",
+                                "Image Hotspots",
+                                "Testimonials",
+                                "Blackquotes",
+                                "Sticky Elements",
+                                "Shape Dividers",
+                            ]
                         },
 
                         {
                             "name" : "Elements3",
-                            "url" : "#"
+                            "url" : "#",
+                            "dropdown" : [
+                                
+                                "Typography",
+                                "Call to Action",
+                                "Pricing Tables",
+                                "Progress Bars",
+                                "Process",
+                                "Counters",
+                                "Countdowns",
+                                "Sections & Parallax",
+                                "Tooltips & Popovers",
+                                "Read More"
+                            ]
                         },
 
                         {
                             "name" : "Elements4",
-                            "url" : "#"
+                            "url" : "#",
+                            "dropdown" : [
+                                
+                                "Headings",
+                                "Dividers",
+                                "Animations",
+                                "Medias",
+                                "Maps",
+                                "Arrows",
+                                "Star Ratings",
+                                "Alerts",
+                                "Posts",
+                                "Forms",
+                            ]
                         }
                     ]
                 },
@@ -75,7 +129,7 @@ function initVue() {
 
                         {
                             "name" : "Features1",
-                            "url" : "#"
+                            "url" : "#",
                         },
 
                         {
@@ -243,13 +297,6 @@ function initVue() {
                     "title" : "Why should I buy a smartwatch?",
                     "descr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 }
-            ],
-
-            "sliderTest" : [
-
-                "img/blog-65 (1).jpg",
-                "img/blog-66.jpg",
-                "img/blog-67 (1).jpg"
             ],
 
             "featAuthor" : {
